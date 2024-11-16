@@ -5,8 +5,8 @@
 1. Clone this repository
 
 ```bash
-git clone https://github.com/RafiRashya/TumoRanger-Backend.git
-cd TumoRanger-Backend
+git clone https://github.com/RafiRashya/tumoranger-backend.git
+cd tumoranger-backend
 ```
 
 2. Set up the environment

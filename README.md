@@ -6,7 +6,7 @@
 
 ```bash
 git clone https://github.com/RafiRashya/tumoranger-backend.git
-cd tumoranger-backend
+cd tumoranger-backend/app
 ```
 
 2. Set up the environment

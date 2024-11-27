@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
+    id("org.jetbrains.kotlin.kapt")
 }
 
 android {
@@ -56,7 +56,8 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
-    ksp(libs.room.compiler)
+    //noinspection KaptUsageInsteadOfKsp
+    kapt(libs.room.compiler)
 
     //retrofit dependencies
     implementation(libs.retrofit)

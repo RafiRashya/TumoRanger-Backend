@@ -227,7 +227,9 @@ def upload_mri():
 
         # Upload file to Google Cloud Storage
         bucket = storage_client.bucket(bucket_name)
-        blob = bucket.blob(f"mri_scans/{file.filename}")
+        timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+        unique_filename = f"{timestamp}_{file.filename}"
+        blob = bucket.blob(f"mri_scans/{unique_filename}")
         blob.upload_from_string(file.read(), content_type=file.content_type)
 
         file_path = blob.public_url

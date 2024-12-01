@@ -1,11 +1,12 @@
 from flask import Flask, request, jsonify
-from google.cloud import storage
 import numpy as np
 from PIL import Image
 import tensorflow as tf
 import os
 import requests
 import io
+
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
 # Load the ML model
 MODEL_PATH = "model/model_mri_scan.h5"

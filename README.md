@@ -142,15 +142,27 @@ Authorization: Bearer `<JWT_Token>`
 ---
 ## **History Diagnose**
 - **Endpoint:** `/diagnose/history`
-- **Method:** `GET`
 - **Description:** Diagnose History.
-- **Response:**
-    ```json
-    {
-        "status": "200",
-        "result": "string"
-    }
-    ```
+- **Method:** `GET`
+- **Authentication**: Required
+- **Responses**:
+    - **200 OK**: Diagnosis history retrieved successfully.
+        ```json
+        {
+            "data": [
+                {
+                    "patient_name": "<patient-name>",
+                    "gender": "<gender>",
+                    "birthdate": "<birthdate>",
+                    "result": "<result>",
+                    "confidence_score": <confidence-score>,
+                    "file_path": "<file-path>",
+                    "diagnosis_date": "<diagnosis-date>"
+                }
+            ],
+            "message": "Diagnosis Historical data has been successfully retrieved."
+        }
+        ```
 ## **Diagnose**
 - **Endpoint:** `/diagnose`
 - **Method:** `POST`

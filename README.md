@@ -17,6 +17,12 @@
 - [Diagnose](#diagnose)
 ---
 
+## Authentication
+All endpoints except for registration and login require a valid JWT token in the Authorization header.
+
+### Example Header
+Authorization: Bearer `<JWT_Token>`
+
 ## **Register**
 - **Endpoint:** `/auth/register`
 - **Method:** `POST`
@@ -24,45 +30,79 @@
 - **Request Body (JSON):**
     ```json
     {
-    "name":"string",
-    "email":"string",
-    "password":"string"
+        "name":"string",
+        "email":"string",
+        "password":"string"
 
     }
     ```
-- **Successful Response:**
-    ```json
-    {
-        "status": "success",
-        "message": "User created successfully",
-    }
-    ```
-- **response when user already exists:**
-    ```json
-    {
-        "status": "fail",
-        "message": "Email or user already exists"
-    }
-    ```
+- **Responses**:
+    - **200 OK**: User created successfully.
+        ```json
+        {
+            "status": 200,
+            "message": "User created successfully",
+            "data": {
+                "account": {
+                    "name": "string>",
+                    "email": "string"
+                }
+            }
+        }
+        ```
+    - **400 Bad Request**: Email or user already exists.
+        ```json
+        {
+            "status": 400,
+            "message": "Email or user already exists"
+        }
+        ```
+    - **500 Internal Server Error**: Error occurred during registration.
+        ```json
+        {
+            "status": 500,
+            "message": "Error Reason: <error-message>"
+        }
+        ```
 
 ---
 ## **LOGIN**
 - **Endpoint:** `/auth/login`
 - **Method:** `POST`
 - **Description:** Akses login user.
-- **Response:**
+- **Request Body**:
     ```json
     {
-        "status": "success",
-        "message": "Login successful"
+        "email": "string",
+        "password": "string"
     }
     ```
-- **Login Failed Response:**
-   ```json
-    {
-        "status": "fail",
-        "message": "Email or password is incorrect"
-    }
+- **Responses**:
+    - **200 OK**: Login successful.
+        ```json
+        {
+            "status": 200,
+            "message": "Login successful",
+            "data": {
+                "token": "<JWT_Token>"
+            }
+        }
+        ```
+    - **401 Unauthorized**: Email or password is incorrect.
+        ```json
+        {
+            "status": 401,
+            "message": "Email or password is incorrect",
+            "data": null
+        }
+        ```
+    - **500 Internal Server Error**: Error occurred during login.
+        ```json
+        {
+            "status": 500,
+            "message": "Error Reason: <error-message>"
+        }
+        ```
 ---
 
 ## **Logout**

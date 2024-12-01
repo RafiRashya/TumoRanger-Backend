@@ -16,6 +16,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tumoranger.databinding.FragmentScanBinding
+import com.dicoding.tumoranger.ui.result.ResultActivity
 
 class ScanFragment : Fragment() {
 
@@ -24,13 +25,14 @@ class ScanFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var addImageButton: Button
+    private lateinit var scanViewModel: ScanViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val scanViewModel = ViewModelProvider(this).get(ScanViewModel::class.java)
+        scanViewModel = ViewModelProvider(this).get(ScanViewModel::class.java)
 
         _binding = FragmentScanBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -68,22 +70,27 @@ class ScanFragment : Fragment() {
         galleryLauncher.launch(intent)
     }
 
-    private fun analyzeImage() {
-        // Add code to analyze the image
-    }
-
     private fun saveToHistory() {
         // Add code to save the image to history
     }
 
     private fun showToast(message: String) {
-        // Add code to show toast message
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun moveToResult() {
-        // Add code to move to result fragment
+    private fun moveToResult(imageUri: Uri) {
+        val intent = Intent(context, ResultActivity::class.java)
+        intent.putExtra("IMAGE_URI", imageUri.toString())
+        startActivity(intent)
     }
 
+    private fun analyzeImage() {
+        // Add code to analyze the image
+        val imageUri = scanViewModel.imageUri.value
+        imageUri?.let {
+            moveToResult(it)
+        } ?: showToast("Please select an image first")
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

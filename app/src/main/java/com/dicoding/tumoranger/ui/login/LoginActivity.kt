@@ -1,6 +1,7 @@
 package com.dicoding.tumoranger.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +13,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
+import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 
 import com.dicoding.tumoranger.R
@@ -38,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
-            // disable login button unless both username / password is valid
             login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
@@ -61,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
             }
             setResult(Activity.RESULT_OK)
 
-            //Complete and destroy login activity once successful
             finish()
         })
 
@@ -107,6 +107,11 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra("navigateTo", "ScanFragment")
+        }
+        startActivity(intent)
+        finish()
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

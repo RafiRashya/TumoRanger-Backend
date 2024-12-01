@@ -22,8 +22,6 @@ class MainActivity : AppCompatActivity() {
         val navView: BottomNavigationView = binding.navView
 
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_scan, R.id.navigation_history, R.id.navigation_settings
@@ -31,5 +29,15 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        handleIntentNavigation(navController)
+    }
+
+    private fun handleIntentNavigation(navController: androidx.navigation.NavController) {
+        val navigateTo = intent.getStringExtra("navigateTo")
+
+        if (navigateTo == "ScanFragment") {
+            navController.navigate(R.id.navigation_scan)
+        }
     }
 }

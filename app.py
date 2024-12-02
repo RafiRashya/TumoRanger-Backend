@@ -53,13 +53,14 @@ def predict():
 
         # Mendapatkan confidence score
         confidence_score = np.max(prediction)
+        confidence_percentage = round(confidence_score * 100)
 
         # Mendapatkan predicted class
         class_labels = ['glioma', 'meningioma', 'notumor', 'pituitary']
         predicted_class = class_labels[np.argmax(prediction)]
 
         # Kembalikan hasil prediksi dalam format JSON
-        return jsonify({'prediction': predicted_class, 'confidenceScore': confidence_score.tolist()})
+        return jsonify({'prediction': predicted_class, 'confidenceScore': confidence_percentage})
 
     except Exception as e:
         # Tangkap error yang tidak terduga

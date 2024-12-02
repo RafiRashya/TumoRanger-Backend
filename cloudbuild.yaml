@@ -1,0 +1,14 @@
+steps:
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build', '-t', 'gcr.io/test-ml-tumoranger/ml-service', '.']
+
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'gcr.io/test-ml-tumoranger/ml-service']
+
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args: ['run', 'deploy', 'ml-service',
+         '--image', 'gcr.io/test-ml-tumoranger/ml-service',
+         '--region', asia-southeast2,
+         '--platform', 'managed',
+         '--allow-unauthenticated']

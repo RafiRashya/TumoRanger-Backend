@@ -14,6 +14,8 @@ COPY requirements.txt /app/
 # Instal dependensi
 RUN pip install --no-cache-dir -r requirements.txt
 
+COPY model/model_mri_scan.h5 /app/model/model_mri_scan.h5
+
 # Salin semua file ke dalam container
 COPY . /app/
 

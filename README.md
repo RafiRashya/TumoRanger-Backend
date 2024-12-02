@@ -107,42 +107,57 @@ Authorization: Bearer `<JWT_Token>`
 
 ## **Logout**
 - **Endpoint:** `/auth/logout`
-- **Method:** `POST`
 - **Description:** User Logout.
-- **Successful Response:**
-    ```json
-    {
-        "status": "success",
-        "message": "Logout successful",
-    }
-    ```
-- **Response Error:**
-    ```json
-    {
-        "status": "internal server error",
-        "message": "An internal error occurred. Please try again later.",
-        
-    }
-    ```
+- **Method:** `POST`
+- **Authentication**: Required
+- **Responses**:
+    - **200 OK**: Logout successful.
+        ```json
+        {
+            "status": 200,
+            "message": "Logout successful",
+            "data": null
+        }
+        ```
+    - **500 Internal Server Error**: Error occurred during logout.
+        ```json
+        {
+            "status": 500,
+            "message": "An internal error occurred. Please try again later."
+        }
+        ```
 
 ---
 
 ## **Profile**
 - **Endpoint:** `/profile`
-- **Method:** `GET`
 - **Description:** User Profile.
-- **Response:**
-    ```json
-    {
-        "status": "success",
-        "result": "User profile retrieved successfully"
-    }
-    ```
+- **Method:** `GET`
+- **Authentication**: Required
+- **Responses**:
+    - **200 OK**: User profile retrieved successfully.
+        ```json
+        {
+            "status": 200,
+            "message": "User profile retrieved successfully",
+            "data": {
+                "username": "<username>",
+                "email": "<email>"
+            }
+        }
+        ```
+    - **500 Internal Server Error**: Error occurred while retrieving profile.
+        ```json
+        {
+            "status": 500,
+            "message": "Error Reason: <error-message>"
+        }
+        ```
 
 ---
 ## **History Diagnose**
 - **Endpoint:** `/diagnose/history`
-- **Description:** Diagnose History.
+- **Description:** Doctor's diagnose histories.
 - **Method:** `GET`
 - **Authentication**: Required
 - **Responses**:
@@ -165,21 +180,30 @@ Authorization: Bearer `<JWT_Token>`
         ```
 ## **Diagnose**
 - **Endpoint:** `/diagnose`
-- **Method:** `POST`
 - **Description:** Diagnose MRI.
-- **Response:**
-    ```json
-    {
-        "status": "200",
-        "result": "MRI uploaded, analyzed, and saved successfully"
-    }
-    ```
-- **Response Error:**
-    ```json
-    {
-        "status": "Fail",
-        "message": "Failed to analyze MRI using the ML service",
-        
-    }
-    ```
+- **Method:** `POST`
+- **Authentication**: Required
+- **Request Body**: (Form-data)
+    - `file`: MRI file
+    - `patient_name`: Name of the patient
+    - `birthdate`: Patient's birthdate (YYYY-MM-DD)
+    - `gender`: Patient's gender
+- **Responses**:
+    - **200 OK**: MRI uploaded and analyzed successfully.
+        ```json
+        {
+            "message": "MRI uploaded, analyzed, and saved successfully",
+            "diagnosis": {
+                "prediction": "<prediction>",
+                "confidenceScore": <confidence-score>
+            }
+        }
+        ```
+    - **500 Internal Server Error**: Error occurred during MRI upload.
+        ```json
+        {
+            "error": "An unexpected error occurred",
+            "details": "<error-message>"
+        }
+        ```
 

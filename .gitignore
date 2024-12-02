@@ -1,5 +1,4 @@
 mlenv
 venv
-model/
 __pycache__
 .dockerignore

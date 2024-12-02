@@ -8,9 +8,11 @@ steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['run', 'deploy', 'ml-service',
-         '--image', 'gcr.io/test-ml-tumoranger/ml-service',
-         '--region', asia-southeast2,
-         '--platform', 'managed',
-         '--allow-unauthenticated']
+       '--image', 'gcr.io/test-ml-tumoranger/ml-service',
+       '--region', 'asia-southeast2',
+       '--platform', 'managed',
+       '--allow-unauthenticated',
+       '--memory', '4Gi',
+       '--cpu', '2']
 options:
   logging: CLOUD_LOGGING_ONLY

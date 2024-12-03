@@ -6,3 +6,4 @@ test-ml-tumoranger-22abe0f36aa2.json
 migrations/
 wslenv
 .venv
+.dockerignore

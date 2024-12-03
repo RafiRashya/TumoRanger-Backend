@@ -9,8 +9,8 @@ from flask_jwt_extended import (
 )
 from google.cloud import storage
 from werkzeug.security import generate_password_hash, check_password_hash
-from models import db, User, Patient, MRIScan, Diagnosis
-from config import Config
+from .models import db, User, Patient, MRIScan, Diagnosis
+from .config import Config
 from datetime import datetime, timezone
 import uuid
 import requests
@@ -246,7 +246,7 @@ def upload_mri():
         db.session.commit()  # Make sure to commit after adding MRI scan
 
         # Trigger ML analysis via external service
-        ml_service_url = "http://127.0.0.1:5000/predict"  # Fixed URL
+        ml_service_url = "https://tumoranger-mlservice-382554775575.asia-southeast2.run.app/predict"  # Fixed URL
         response = requests.post(
             ml_service_url,
             json={"file_url": file_path}
@@ -289,4 +289,4 @@ def upload_mri():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
-    app.run(host='0.0.0.0', debug=True, port=8080)
+    app.run(host='0.0.0.0', debug=True, port=5050)

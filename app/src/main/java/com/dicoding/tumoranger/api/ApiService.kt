@@ -14,8 +14,8 @@ interface ApiService {
         @Body request: RegisterRequest
     ): Call<RegisterResponse>
 
-    /*@POST("/auth/login")
+    @POST("/auth/login")
     fun loginUser(
         @Body request: LoginRequest
-    ): Call<LoginResponse>*/
+    ): Call<LoginResponse>
 }

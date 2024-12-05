@@ -71,4 +71,10 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.play.services.auth)
+    
+    //okhttp logging interceptor
+    implementation(libs.okhttp3.logging)
+
+    //datastore
+    implementation(libs.androidx.datastore.preferences)
 }

@@ -15,7 +15,6 @@ import android.widget.EditText
 import android.widget.Toast
 import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
-
 import com.dicoding.tumoranger.R
 
 class LoginActivity : AppCompatActivity() {

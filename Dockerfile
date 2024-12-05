@@ -23,4 +23,4 @@ ENV DATABASE_URI=mysql+pymysql://root:123@db_container:3306/tumoranger_db
 EXPOSE 8080
 
 # Perintah untuk menjalankan aplikasi menggunakan Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:8080", "app.app:app"]
+CMD ["gunicorn", "-w", "3", "-b", "0.0.0.0:8080", "--access-logfile", "-", "app.app:app"]

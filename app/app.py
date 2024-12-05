@@ -14,9 +14,13 @@ from .config import Config
 from datetime import datetime, timezone
 import uuid
 import requests
+import logging
 
 app = Flask(__name__)
 app.config.from_object(Config)
+
+logging.basicConfig(level=logging.INFO)
+app.logger.setLevel(logging.INFO)
 
 db.init_app(app)
 jwt = JWTManager(app)
@@ -26,6 +30,11 @@ storage_client = storage.Client()
 bucket_name = "tumoranger-ml-test"
 
 blacklist = set()
+
+@app.before_request
+def log_request_info():
+    app.logger.info("Headers: %s", request.headers)
+    app.logger.info("Body: %s", request.get_data())
 
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blacklist(jwt_header, jwt_payload):

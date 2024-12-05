@@ -1,39 +1,84 @@
 package com.dicoding.tumoranger.ui.register
-/*
+
 import android.app.Activity
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
-import android.text.Editable
-import android.text.TextWatcher
+import android.util.Log
 import android.view.View
-import android.view.inputmethod.EditorInfo
-import android.widget.EditText
 import android.widget.Toast
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.dicoding.tumoranger.MainActivity
-import com.dicoding.tumoranger.databinding.ActivityLoginBinding
-import com.dicoding.tumoranger.R
 import com.dicoding.tumoranger.databinding.ActivityRegisterBinding
-import com.dicoding.tumoranger.ui.login.LoginViewModel
+import com.dicoding.tumoranger.ui.login.LoginActivity
+import com.dicoding.tumoranger.ui.login.afterTextChanged
 
-class RegisterActivity : AppCompatActivity {
+class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var RegisterViewModel: RegisterViewModel
     private lateinit var binding: ActivityRegisterBinding
+    private val registerViewModel: RegisterViewModel by viewModels()
 
-    override fun onCreate (savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val username = binding.username
-        val password = binding.password
-        val register = binding.register
-        val loading = binding.loading
-    }
+        registerViewModel.registerFormState.observe(this, Observer {
+            val registerState = it ?: return@Observer
 
-}*/
+            binding.register?.isEnabled = registerState.isDataValid
+
+            if (registerState.usernameError != null) {
+                binding.username.error = getString(registerState.usernameError)
+            }
+            if (registerState.emailError != null) {
+                binding.email?.error = getString(registerState.emailError)
+            }
+            if (registerState.passwordError != null) {
+                binding.password.error = getString(registerState.passwordError)
+            }
+        })
+
+        registerViewModel.registerResult.observe(this, Observer { result ->
+            Log.d("RegisterActivity", "Register result: $result")
+            Toast.makeText(this, result, Toast.LENGTH_SHORT).show()
+            if (result == "Register successful") {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+        })
+
+        binding.username.afterTextChanged {
+            registerViewModel.registerDataChanged(
+                binding.username.text.toString(),
+                binding.email?.text.toString(),
+                binding.password.text.toString()
+            )
+        }
+
+        binding.email?.afterTextChanged {
+            registerViewModel.registerDataChanged(
+                binding.username.text.toString(),
+                binding.email?.text.toString(),
+                binding.password.text.toString()
+            )
+        }
+
+        binding.password.afterTextChanged {
+            registerViewModel.registerDataChanged(
+                binding.username.text.toString(),
+                binding.email?.text.toString(),
+                binding.password.text.toString()
+            )
+        }
+
+        binding.register?.setOnClickListener {
+            val name = binding.username.text.toString()
+            val email = binding.email?.text.toString()
+            val password = binding.password.text.toString()
+            registerViewModel.registerUser(name, email, password)
+        }
+    }
+}

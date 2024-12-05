@@ -12,10 +12,12 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.R
+import com.dicoding.tumoranger.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,6 +34,13 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.password
         val login = binding.login
         val loading = binding.loading
+
+        val signUpTextView: TextView = findViewById(R.id.signUpTextView)
+        signUpTextView.setOnClickListener {
+            // Handle the click event
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)

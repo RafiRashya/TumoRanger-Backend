@@ -1,6 +1,7 @@
 package com.dicoding.tumoranger.ui.login
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -14,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.R
@@ -21,18 +23,16 @@ import com.dicoding.tumoranger.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var loginViewModel: LoginViewModel
+    private val loginViewModel: LoginViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val username = binding.username
         val password = binding.password
-        val login = binding.login
         val loading = binding.loading
 
         val signUpTextView: TextView = findViewById(R.id.signUpTextView)
@@ -42,13 +42,10 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
-            .get(LoginViewModel::class.java)
-
         loginViewModel.loginFormState.observe(this@LoginActivity, Observer {
             val loginState = it ?: return@Observer
 
-            login.isEnabled = loginState.isDataValid
+            binding.login.isEnabled = loginState.isDataValid
 
             if (loginState.usernameError != null) {
                 username.error = getString(loginState.usernameError)
@@ -61,16 +58,14 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
-            if (loginResult.error != null) {
-                showLoginFailed(loginResult.error)
+            if (loginResult == "Login successful") {
+                saveLoginState()
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish() // Close LoginActivity
+            } else {
+                // Handle login failure
             }
-            if (loginResult.success != null) {
-                updateUiWithUser(loginResult.success)
-            }
-            setResult(Activity.RESULT_OK)
-
-            finish()
         })
 
         username.afterTextChanged {
@@ -91,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
             setOnEditorActionListener { _, actionId, _ ->
                 when (actionId) {
                     EditorInfo.IME_ACTION_DONE ->
-                        loginViewModel.login(
+                        loginViewModel.loginUser(
                             username.text.toString(),
                             password.text.toString()
                         )
@@ -99,31 +94,19 @@ class LoginActivity : AppCompatActivity() {
                 false
             }
 
-            login.setOnClickListener {
+            binding.login.setOnClickListener {
                 loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
+                loginViewModel.loginUser(username.text.toString(), password.text.toString())
             }
         }
     }
 
-    private fun updateUiWithUser(model: LoggedInUserView) {
-        val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
-        // TODO : initiate successful logged in experience
-        Toast.makeText(
-            applicationContext,
-            "$welcome $displayName",
-            Toast.LENGTH_LONG
-        ).show()
-        val intent = Intent(this, MainActivity::class.java).apply {
-            putExtra("navigateTo", "ScanFragment")
+    private fun saveLoginState() {
+        val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
+        with(sharedPreferences.edit()) {
+            putBoolean("is_logged_in", true)
+            apply()
         }
-        startActivity(intent)
-        finish()
-    }
-
-    private fun showLoginFailed(@StringRes errorString: Int) {
-        Toast.makeText(applicationContext, errorString, Toast.LENGTH_SHORT).show()
     }
 }
 

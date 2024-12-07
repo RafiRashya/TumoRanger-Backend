@@ -1,32 +1,48 @@
 package com.dicoding.tumoranger.ui.login
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import com.dicoding.tumoranger.data.LoginRepository
-import com.dicoding.tumoranger.data.Result
+import android.widget.Toast
+import com.dicoding.storyapp.api.RetrofitClient
 
 import com.dicoding.tumoranger.R
+import com.dicoding.tumoranger.api.request.LoginRequest
+import com.dicoding.tumoranger.api.request.RegisterRequest
+import com.dicoding.tumoranger.api.response.LoginResponse
+import com.dicoding.tumoranger.api.response.RegisterResponse
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class LoginViewModel(private val loginRepository: LoginRepository) : ViewModel() {
+class LoginViewModel : ViewModel() {
 
     private val _loginForm = MutableLiveData<LoginFormState>()
     val loginFormState: LiveData<LoginFormState> = _loginForm
 
-    private val _loginResult = MutableLiveData<LoginResult>()
-    val loginResult: LiveData<LoginResult> = _loginResult
+    private val _loginResult = MutableLiveData<String>()
+    val loginResult: LiveData<String> = _loginResult
 
-    fun login(username: String, password: String) {
-        // can be launched in a separate asynchronous job
-        val result = loginRepository.login(username, password)
+    fun loginUser (username: String, password: String) {
+        val request = LoginRequest(username, password)
+        RetrofitClient.apiService.loginUser(request).enqueue(object : Callback<LoginResponse> {
+            override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                if (response.isSuccessful && response.body()?.status == 200) {
+                    Log.d("LoginFragment", "Login successful: ")
 
-        if (result is Result.Success) {
-            _loginResult.value =
-                LoginResult(success = LoggedInUserView(displayName = result.data.displayName))
-        } else {
-            _loginResult.value = LoginResult(error = R.string.login_failed)
-        }
+
+                    _loginResult.value = "Login successful"
+                } else {
+                    _loginResult.value = "Login failed"
+                }
+            }
+
+            override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                _loginResult.value = "Network error"
+            }
+        })
     }
 
     fun loginDataChanged(username: String, password: String) {

@@ -13,13 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_history"
-        android:name="com.dicoding.tumoranger.ui.settings.DashboardFragment"
+        android:name="com.dicoding.tumoranger.ui.history.HistoryFragment"
         android:label="@string/title_history"
         tools:layout="@layout/fragment_settings" />
 
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.dicoding.tumoranger.ui.history.HistoryFragment"
+        android:name="com.dicoding.tumoranger.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_history" />
 </navigation>

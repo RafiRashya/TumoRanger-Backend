@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tumoranger.databinding.FragmentSettingsBinding
 
-class DashboardFragment : Fragment() {
+class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
 
@@ -22,15 +22,13 @@ class DashboardFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dashboardViewModel =
-            ViewModelProvider(this).get(DashboardViewModel::class.java)
+        val settingsViewModel =
+            ViewModelProvider(this).get(SettingsViewModel::class.java)
 
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textSettings
-        dashboardViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        settingsViewModel.text.observe(viewLifecycleOwner) {
         }
         return root
     }

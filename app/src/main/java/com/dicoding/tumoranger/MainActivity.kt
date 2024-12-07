@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -31,6 +33,13 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         handleIntentNavigation(navController)
+    }
+
+    private fun isUserLoggedIn(): Boolean {
+        // Implement your logic to check if the user is logged in
+        // For example, check if a token is stored in SharedPreferences
+        val sharedPreferences = getSharedPreferences("user_prefs", MODE_PRIVATE)
+        return sharedPreferences.getBoolean("is_logged_in", false)
     }
 
     private fun handleIntentNavigation(navController: androidx.navigation.NavController) {

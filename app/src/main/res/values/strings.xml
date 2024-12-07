@@ -18,4 +18,9 @@
     <string name="analyze">Analyze</string>
     <string name="add_image">Add Image</string>
     <string name="action_register">Register</string>
+    <string name="female">Female</string>
+    <string name="male">Male</string>
+    <string name="birth">Birth</string>
+    <string name="name">Name</string>
+    <string name="logout">logout</string>
 </resources>

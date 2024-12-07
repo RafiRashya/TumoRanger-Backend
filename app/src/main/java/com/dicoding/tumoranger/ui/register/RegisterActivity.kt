@@ -1,15 +1,12 @@
 package com.dicoding.tumoranger.ui.register
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.databinding.ActivityRegisterBinding
 import com.dicoding.tumoranger.ui.login.LoginActivity
 import com.dicoding.tumoranger.ui.login.afterTextChanged

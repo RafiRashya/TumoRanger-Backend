@@ -3,26 +3,35 @@ package com.dicoding.tumoranger.ui.result
 import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.dicoding.tumoranger.R
 
 class ResultActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_result)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
 
-        val imageView: ImageView = findViewById(R.id.resultImageView)
-        val imageUriString = intent.getStringExtra("IMAGE_URI")
-        val imageUri = Uri.parse(imageUriString)
-        imageView.setImageURI(imageUri)
+        val resultImageView: ImageView = findViewById(R.id.resultImageView)
+        val predictionTextView: TextView = findViewById(R.id.predictionTextView)
+        val confidenceScoreTextView: TextView = findViewById(R.id.confidenceScoreTextView)
+        val nameTextView: TextView = findViewById(R.id.nameTextView)
+        val birthdateTextView: TextView = findViewById(R.id.birthdateTextView)
+        val genderTextView: TextView = findViewById(R.id.genderTextView)
+
+        val imageUri = intent.getStringExtra("IMAGE_URI")
+        val prediction = intent.getStringExtra("PREDICTION")
+        val confidenceScore = intent.getStringExtra("CONFIDENCE_SCORE")
+        val name = intent.getStringExtra("NAME")
+        val birthdate = intent.getStringExtra("BIRTHDATE")
+        val gender = intent.getStringExtra("GENDER")
+
+        resultImageView.setImageURI(Uri.parse(imageUri))
+        predictionTextView.text = prediction
+        confidenceScoreTextView.text = confidenceScore
+        nameTextView.text = name
+        birthdateTextView.text = birthdate
+        genderTextView.text = gender
     }
 }

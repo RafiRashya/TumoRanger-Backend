@@ -18,4 +18,13 @@ interface ApiService {
     fun loginUser(
         @Body request: LoginRequest
     ): Call<LoginResponse>
+
+    @Multipart
+    @POST("/diagnose")
+    fun diagnose(
+        @Part file: MultipartBody.Part,
+        @Part("patient_name") patientName: RequestBody,
+        @Part("birthdate") birthdate: RequestBody,
+        @Part("gender") gender: RequestBody
+    ): Call<DiagnoseResponse>
 }

@@ -74,6 +74,7 @@ dependencies {
     
     //okhttp logging interceptor
     implementation(libs.okhttp3.logging)
+    implementation(libs.okhttp3)
 
     //datastore
     implementation(libs.androidx.datastore.preferences)

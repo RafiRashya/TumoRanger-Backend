@@ -23,4 +23,9 @@
     <string name="birth">Birth</string>
     <string name="name">Name</string>
     <string name="logout">logout</string>
+    <string name="prediction" />
+    <string name="confidence_score" />
+    <string name="gender">Gender</string>
+    <string name="birthdate">Birthdate</string>
+    <string name="patient_name" />
 </resources>

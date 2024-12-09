@@ -107,6 +107,7 @@ class LoginActivity : AppCompatActivity() {
             putBoolean("is_logged_in", true)
             apply()
         }
+
     }
 }
 

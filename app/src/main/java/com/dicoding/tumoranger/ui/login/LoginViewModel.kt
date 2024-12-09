@@ -5,14 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import android.util.Patterns
-import android.widget.Toast
-import com.dicoding.storyapp.api.RetrofitClient
-
 import com.dicoding.tumoranger.R
 import com.dicoding.tumoranger.api.request.LoginRequest
-import com.dicoding.tumoranger.api.request.RegisterRequest
 import com.dicoding.tumoranger.api.response.LoginResponse
-import com.dicoding.tumoranger.api.response.RegisterResponse
+import com.dicoding.storyapp.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -25,22 +21,26 @@ class LoginViewModel : ViewModel() {
     private val _loginResult = MutableLiveData<String>()
     val loginResult: LiveData<String> = _loginResult
 
-    fun loginUser (username: String, password: String) {
+    private val _loginResponse = MutableLiveData<LoginResponse>()
+    val loginResponse: LiveData<LoginResponse> = _loginResponse
+
+    fun loginUser(username: String, password: String) {
         val request = LoginRequest(username, password)
         RetrofitClient.apiService.loginUser(request).enqueue(object : Callback<LoginResponse> {
             override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
                 if (response.isSuccessful && response.body()?.status == 200) {
-                    Log.d("LoginFragment", "Login successful: ")
-
-
+                    _loginResponse.value = response.body()
                     _loginResult.value = "Login successful"
+                    Log.d("LoginViewModel", "Login successful: ${response.body()?.data?.token}")
                 } else {
                     _loginResult.value = "Login failed"
+                    Log.d("LoginViewModel", "Login failed: ${response.message()}")
                 }
             }
 
             override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
                 _loginResult.value = "Network error"
+                Log.d("LoginViewModel", "Network error: ${t.message}")
             }
         })
     }
@@ -55,7 +55,6 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    // A placeholder username validation check
     private fun isUserNameValid(username: String): Boolean {
         return if (username.contains('@')) {
             Patterns.EMAIL_ADDRESS.matcher(username).matches()
@@ -64,7 +63,6 @@ class LoginViewModel : ViewModel() {
         }
     }
 
-    // A placeholder password validation check
     private fun isPasswordValid(password: String): Boolean {
         return password.length > 5
     }

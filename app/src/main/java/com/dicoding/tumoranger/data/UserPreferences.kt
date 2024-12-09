@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "us
 class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
 
     private val TOKEN_KEY = stringPreferencesKey("token")
+    private val IS_LOGGED_IN_KEY = booleanPreferencesKey("is_logged_in")
 
     fun getUser(): Flow<User> {
         return dataStore.data.map { preferences ->
@@ -22,9 +24,23 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
+    fun isLoggedIn(): Flow<Boolean> {
+        return dataStore.data.map { preferences ->
+            preferences[IS_LOGGED_IN_KEY] ?: false
+        }
+    }
+
     suspend fun saveUser(user: User) {
         dataStore.edit { preferences ->
             preferences[TOKEN_KEY] = user.token
+            preferences[IS_LOGGED_IN_KEY] = true
+        }
+    }
+
+    suspend fun clearUser() {
+        dataStore.edit { preferences ->
+            preferences[TOKEN_KEY] = ""
+            preferences[IS_LOGGED_IN_KEY] = false
         }
     }
 

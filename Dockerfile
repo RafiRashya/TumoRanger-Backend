@@ -18,6 +18,7 @@ COPY test-ml-tumoranger-22abe0f36aa2.json /app/
 ENV FLASK_ENV=production
 ENV GOOGLE_APPLICATION_CREDENTIALS=/app/test-ml-tumoranger-22abe0f36aa2.json
 ENV DATABASE_URI=mysql+pymysql://root:123@db_container:3306/tumoranger_db
+ENV SECRET_KEY=a6iICzsHcVhNvQx9zWP15O3ERiSYYYwQ
 
 # Port yang akan digunakan oleh container
 EXPOSE 8080

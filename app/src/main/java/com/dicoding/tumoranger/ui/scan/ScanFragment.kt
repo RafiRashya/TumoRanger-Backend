@@ -25,6 +25,7 @@ import com.dicoding.tumoranger.databinding.FragmentScanBinding
 import com.dicoding.tumoranger.ui.result.ResultActivity
 import com.dicoding.tumoranger.data.UserPreference
 import com.dicoding.tumoranger.data.dataStore
+import com.dicoding.tumoranger.ui.login.LoginActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -224,11 +225,8 @@ class ScanFragment : Fragment() {
             Log.d("ScanFragment", "Using token: $token")
             val apiService = RetrofitClient.getApiService(token)
 
-            // Log the file details
-            Log.d("ScanFragment", "File details: name=${file.name}, size=${file.length()}")
-            Log.d("ScanFragment", "Form data: name=$name, birthdate=$birthdate, gender=$gender")
-
-            val call = apiService.diagnose(body, patientName, birthdateBody, genderBody)
+            // Add the Bearer token to the request headers
+            val call = apiService.diagnose("Bearer $token", body, patientName, birthdateBody, genderBody)
             Log.d("ScanFragment", "Analyzing image with data: $name, $birthdate, $gender")
 
             call.enqueue(object : Callback<DiagnoseResponse> {
@@ -242,6 +240,12 @@ class ScanFragment : Fragment() {
                             showToast("Failed to get diagnosis")
                             Log.d("ScanFragment", "Failed to get diagnosis")
                         }
+                    } else if (response.code() == 401) {
+                        showToast("Authentication token has expired. Please log in again.")
+                        Log.d("ScanFragment", "Token has expired")
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        startActivity(intent)
+                        requireActivity().finish()
                     } else {
                         showToast("Failed to analyze image: ${response.message()}")
                         Log.d("ScanFragment", "Failed to analyze image: ${response.message()}")

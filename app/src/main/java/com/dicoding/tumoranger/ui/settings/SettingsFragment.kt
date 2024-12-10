@@ -41,7 +41,8 @@ class SettingsFragment : Fragment() {
     private fun logout() {
         val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
-            clear()
+            remove("auth_token")
+            putBoolean("is_logged_in", false)
             apply()
         }
         val intent = Intent(activity, LoginActivity::class.java)

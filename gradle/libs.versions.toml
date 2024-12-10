@@ -52,6 +52,8 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 okhttp3-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version = "4.9.1" }
 okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.1" }
 
+androidx-databinding = { group = "androidx.databinding", name = "databinding-runtime", version = "8.7.3" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

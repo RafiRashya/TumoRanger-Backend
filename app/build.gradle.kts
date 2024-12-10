@@ -37,6 +37,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
@@ -78,4 +79,7 @@ dependencies {
 
     //datastore
     implementation(libs.androidx.datastore.preferences)
+
+    //data binding
+    kapt(libs.androidx.databinding)
 }

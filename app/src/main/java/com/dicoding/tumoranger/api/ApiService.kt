@@ -19,12 +19,20 @@ interface ApiService {
         @Body request: LoginRequest
     ): Call<LoginResponse>
 
+    @GET("/diagnose/history")
+    fun getDiagnosisHistory(
+        @Header("Authorization") token: String
+    ): Call<DiagnosisHistoryResponse>
+
     @Multipart
     @POST("/diagnose")
     fun diagnose(
+        @Header("Authorization") token: String,
         @Part file: MultipartBody.Part,
-        @Part("patient_name") patientName: RequestBody,
+        @Part("name") name: RequestBody,
         @Part("birthdate") birthdate: RequestBody,
         @Part("gender") gender: RequestBody
     ): Call<DiagnoseResponse>
+
+
 }

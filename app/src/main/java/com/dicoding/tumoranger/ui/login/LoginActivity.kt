@@ -12,10 +12,15 @@ import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import com.dicoding.tumoranger.MainActivity
 import com.dicoding.tumoranger.R
+import com.dicoding.tumoranger.data.User
+import com.dicoding.tumoranger.data.UserPreference
+import com.dicoding.tumoranger.data.dataStore
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.ui.register.RegisterActivity
+import kotlinx.coroutines.launch
 
 class LoginActivity : AppCompatActivity() {
 
@@ -52,14 +57,18 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        loginViewModel.loginResult.observe(this@LoginActivity, Observer {
-            val loginResult = it ?: return@Observer
+        // LoginActivity.kt
+        loginViewModel.loginResponse.observe(this@LoginActivity, Observer { loginResponse ->
+            val loginResult = loginResponse ?: return@Observer
 
-            if (loginResult == "Login successful") {
-                saveLoginState()
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish() // Close LoginActivity
+            if (loginResult.status == 200) {
+                val token = loginResult.data?.token
+                if (token != null) {
+                    saveLoginState(token)
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish() // Close LoginActivity
+                }
             } else {
                 // Handle login failure
             }
@@ -98,13 +107,18 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun saveLoginState() {
+    private fun saveLoginState(token: String) {
+
         val sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putBoolean("is_logged_in", true)
+            putString("auth_token", token)
             apply()
         }
-
+        lifecycleScope.launch {
+            val userPreference = UserPreference.getInstance(dataStore)
+            userPreference.saveUser(User(token))
+        }
     }
 }
 

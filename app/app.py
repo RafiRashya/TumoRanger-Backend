@@ -34,18 +34,7 @@ blacklist = set()
 @app.before_request
 def log_request_info():
     app.logger.info("Headers: %s", request.headers)
-    content_type = request.content_type
-    if "multipart/form-data" in content_type:  # Biasanya digunakan untuk upload file
-        for file_key, file in request.files.items():
-            app.logger.info(
-                "File received - Name: %s, Size: %d bytes, MIME Type: %s",
-                file.filename,
-                len(file.read()),
-                file.content_type
-            )
-            file.seek(0)  # Reset file pointer untuk digunakan aplikasi
-    else:
-        app.logger.info("Body: %s", request.get_data(as_text=True))
+    app.logger.info("Body: %s", request.get_data())
 
 @jwt.token_in_blocklist_loader
 def check_if_token_in_blacklist(jwt_header, jwt_payload):

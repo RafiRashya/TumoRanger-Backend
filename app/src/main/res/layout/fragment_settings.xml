@@ -7,7 +7,6 @@
     tools:context=".ui.settings.SettingsFragment"
     android:padding="16dp">
 
-    <!-- ScrollView untuk memungkinkan konten scroll jika panjangnya melebihi layar -->
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -23,7 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Foto Profil -->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
@@ -36,7 +34,6 @@
                 android:layout_marginTop="16dp"
                 android:layout_gravity="center"/>
 
-            <!-- Nama Pengguna -->
             <TextView
                 android:id="@+id/textView_name"
                 android:layout_width="wrap_content"
@@ -50,7 +47,6 @@
                 android:layout_marginTop="16dp"
                 android:gravity="center" />
 
-            <!-- Tombol Manage Account -->
             <Button
                 android:id="@+id/button_manage_account"
                 android:layout_width="wrap_content"
@@ -65,7 +61,6 @@
                 app:cornerRadius="8dp"
                 android:gravity="center" />
 
-            <!-- Group Pilihan Bahasa -->
             <TextView
                 android:id="@+id/text_language"
                 android:layout_width="wrap_content"
@@ -98,7 +93,6 @@
                     android:text="@string/zimbabwe" />
             </RadioGroup>
 
-            <!-- Group Pengaturan Tampilan -->
             <TextView
                 android:id="@+id/text_appearance"
                 android:layout_width="wrap_content"
@@ -137,7 +131,6 @@
                     android:text="@string/dark" />
             </RadioGroup>
 
-            <!-- Tombol Logout -->
             <Button
                 android:id="@+id/button_logout"
                 android:layout_width="wrap_content"

@@ -31,4 +31,12 @@
     <string name="sign_up">Sign Up</string>
     <string name="title_app">Tumoranger</string>
     <string name="result">Result</string>
+    <string name="manage_account">Manage your Google Account</string>
+    <string name="language">Language</string>
+    <string name="appearance">Appearance</string>
+    <string name="system_default">System default</string>
+    <string name="light">Light</string>
+    <string name="dark">Dark</string>
+    <string name="english">English</string>
+    <string name="zimbabwe">Zimbabwe</string>
 </resources>

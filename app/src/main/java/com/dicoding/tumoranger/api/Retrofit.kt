@@ -1,6 +1,5 @@
-package com.dicoding.storyapp.api
+package com.dicoding.tumoranger.api
 
-import com.dicoding.tumoranger.api.ApiService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

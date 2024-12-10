@@ -28,4 +28,6 @@
     <string name="gender">Gender</string>
     <string name="birthdate">Birthdate</string>
     <string name="patient_name" />
+    <string name="sign_up">Sign Up</string>
+    <string name="title_app">Tumoranger</string>
 </resources>

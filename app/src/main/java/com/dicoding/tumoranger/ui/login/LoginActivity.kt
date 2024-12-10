@@ -1,24 +1,20 @@
 package com.dicoding.tumoranger.ui.login
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.annotation.StringRes
-import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.dicoding.tumoranger.MainActivity
-import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.R
+import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.ui.register.RegisterActivity
 
 class LoginActivity : AppCompatActivity() {
@@ -30,6 +26,7 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         val username = binding.username
         val password = binding.password

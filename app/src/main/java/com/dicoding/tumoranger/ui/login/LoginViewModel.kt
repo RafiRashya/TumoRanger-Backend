@@ -8,7 +8,7 @@ import android.util.Patterns
 import com.dicoding.tumoranger.R
 import com.dicoding.tumoranger.api.request.LoginRequest
 import com.dicoding.tumoranger.api.response.LoginResponse
-import com.dicoding.storyapp.api.RetrofitClient
+import com.dicoding.tumoranger.api.RetrofitClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

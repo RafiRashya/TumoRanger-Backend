@@ -3,7 +3,7 @@ package com.dicoding.tumoranger.ui.register
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.dicoding.storyapp.api.RetrofitClient
+import com.dicoding.tumoranger.api.RetrofitClient
 import com.dicoding.tumoranger.R
 import com.dicoding.tumoranger.api.request.RegisterRequest
 import com.dicoding.tumoranger.api.response.RegisterResponse

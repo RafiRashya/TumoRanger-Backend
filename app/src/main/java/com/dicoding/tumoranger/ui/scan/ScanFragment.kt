@@ -47,6 +47,7 @@ class ScanFragment : Fragment() {
     private lateinit var imageView: ImageView
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private lateinit var addImageButton: Button
+    private lateinit var changeImageButton: Button
     private lateinit var analyzeButton: Button
     private lateinit var nameEditText: EditText
     private lateinit var birthdateEditText: EditText
@@ -65,6 +66,7 @@ class ScanFragment : Fragment() {
 
         imageView = binding.previewImageView
         addImageButton = binding.addImageButton
+        changeImageButton = binding.changeImageButton
         analyzeButton = binding.analyzeButton
         nameEditText = binding.nameEditText
         birthdateEditText = binding.birthDateEditText
@@ -84,6 +86,7 @@ class ScanFragment : Fragment() {
             imageView.setImageURI(uri)
             imageView.visibility = View.VISIBLE
             addImageButton.visibility = View.GONE
+            changeImageButton.visibility = View.VISIBLE
             Log.d("ScanFragment", "Image URI observed: $uri")
         })
 
@@ -141,28 +144,6 @@ class ScanFragment : Fragment() {
         Log.d("ScanFragment", "Moving to ResultActivity with data: $name, $birthdate, $gender, $prediction, $confidenceScore")
     }
 
-    private fun uriToBitmap(uri: Uri): Bitmap? {
-        return try {
-            val inputStream = requireContext().contentResolver.openInputStream(uri)
-            BitmapFactory.decodeStream(inputStream)
-        } catch (e: IOException) {
-            e.printStackTrace()
-            null
-        }
-    }
-
-    private fun bitmapToFile(bitmap: Bitmap, fileName: String): File {
-        val file = File(requireContext().cacheDir, fileName)
-        try {
-            val outputStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
-            outputStream.flush()
-            outputStream.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-        return file
-    }
 
     private fun getRealPathFromURI(uri: Uri): String? {
         val projection = arrayOf(MediaStore.Images.Media.DATA)

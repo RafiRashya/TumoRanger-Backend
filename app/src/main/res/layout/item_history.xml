@@ -1,44 +1,89 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_margin="4dp"
+    android:padding="16dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="4dp"
+    app:contentPadding="6dp">
 
-    <TextView
-        android:id="@+id/patientNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/patient_name"
-        android:textStyle="bold" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/genderTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/gender" />
+        <ImageView
+            android:id="@+id/imagePreview"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-    <TextView
-        android:id="@+id/birthdateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/birthdate" />
+        <TextView
+            android:id="@+id/patientNameTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/patient_name"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview" />
 
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/result" />
+        <TextView
+            android:id="@+id/genderTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/gender"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/patientNameTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview" />
 
-    <TextView
-        android:id="@+id/confidenceScoreTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/confidence_score" />
+        <TextView
+            android:id="@+id/birthdateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/birthdate"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/genderTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview" />
 
-    <TextView
-        android:id="@+id/diagnosisDateTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Diagnosis Date" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/resultTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/result"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/birthdateTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview" />
+
+        <TextView
+            android:id="@+id/confidenceScoreTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/confidence_score"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/resultTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview" />
+
+        <TextView
+            android:id="@+id/diagnosisDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/diagnosis_date"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@id/confidenceScoreTextView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/imagePreview"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

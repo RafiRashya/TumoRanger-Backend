@@ -59,7 +59,7 @@ class ScanFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        scanViewModel = ViewModelProvider(this).get(ScanViewModel::class.java)
+        scanViewModel = ViewModelProvider(this)[ScanViewModel::class.java]
 
         _binding = FragmentScanBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -95,6 +95,10 @@ class ScanFragment : Fragment() {
         }
 
         addImageButton.setOnClickListener {
+            openGallery()
+        }
+
+        changeImageButton.setOnClickListener {
             openGallery()
         }
 

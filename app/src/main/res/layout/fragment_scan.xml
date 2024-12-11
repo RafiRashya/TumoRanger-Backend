@@ -56,9 +56,10 @@
                 android:id="@+id/changeImageButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:elevation="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:text="@string/change_image"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@+id/imageContainer"
                 app:layout_constraintTop_toTopOf="@+id/imageContainer" />
 

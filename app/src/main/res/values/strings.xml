@@ -34,7 +34,7 @@
 
     <string name="birthdate">Birthdate</string>
     <string name="birth">Birth</string>
-    <string name="patient_name" />
+    <string name="patient_name">Patient Name</string>
     <string name="name">Name</string>
 
     <string name="prediction">Prediction</string>
@@ -51,4 +51,5 @@
     <string name="english">English</string>
     <string name="zimbabwe">Zimbabwe</string>
     <string name="change_image">change image</string>
+    <string name="diagnosis_date">Diagnosis Date</string>
 </resources>

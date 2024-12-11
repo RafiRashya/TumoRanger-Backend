@@ -84,4 +84,8 @@ dependencies {
 
     //data binding
     kapt(libs.androidx.databinding)
+
+    //glide
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
 }

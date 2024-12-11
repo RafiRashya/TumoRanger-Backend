@@ -49,7 +49,9 @@
     <string name="light">Light</string>
     <string name="dark">Dark</string>
     <string name="english">English</string>
-    <string name="zimbabwe">Zimbabwe</string>
+    <string name="zimbabwe">Indonesia</string>
+    <string name="language_changed">Language changed</string>
+
     <string name="change_image">change image</string>
     <string name="diagnosis_date">Diagnosis Date</string>
 </resources>

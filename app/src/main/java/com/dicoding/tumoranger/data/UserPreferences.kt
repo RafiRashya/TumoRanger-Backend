@@ -1,6 +1,7 @@
 package com.dicoding.tumoranger.data
 
 import android.content.Context
+import android.util.Log
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
@@ -28,6 +29,38 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         return dataStore.data.map { preferences ->
             preferences[IS_LOGGED_IN_KEY] ?: false
         }
+    }
+
+    fun getTheme(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[PreferencesKeys.THEME] ?: "system" // Default system theme
+        }
+    }
+
+    suspend fun saveTheme(theme: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.THEME] = theme
+        }
+    }
+
+    suspend fun getLanguage(): String {
+        var language = "en" // Nilai default
+        dataStore.data.collect { preferences ->
+            language = preferences[PreferencesKeys.LANGUAGE] ?: "en"
+        }
+        return language
+    }
+
+    suspend fun saveLanguage(language: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.LANGUAGE] = language
+        }
+        Log.d("UserPreference", "Saved language: $language") // Log untuk memastikan bahasa disimpan
+    }
+
+    private object PreferencesKeys {
+        val LANGUAGE = stringPreferencesKey("language_key")
+        val THEME = stringPreferencesKey("theme_key")
     }
 
     suspend fun saveUser(user: User) {

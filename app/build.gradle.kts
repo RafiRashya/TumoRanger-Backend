@@ -53,7 +53,7 @@ dependencies {
     implementation(libs.androidx.annotation)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.cardview)
-    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation(libs.circleimageview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

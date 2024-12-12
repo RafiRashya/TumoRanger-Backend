@@ -1,0 +1,9 @@
+venv
+app/__pycache__/
+app/instance/
+test-ml-tumoranger-22abe0f36aa2.json
+.env
+migrations/
+wslenv
+.venv
+.dockerignore

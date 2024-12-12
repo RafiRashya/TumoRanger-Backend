@@ -3,6 +3,7 @@ package com.dicoding.tumoranger.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,48 +32,27 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout using View Binding
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        // Initialize UserPreference with dataStore from context
         userPreference = UserPreference.getInstance(requireContext().dataStore)
         sharedPreferences = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
 
-        // Initialize ViewModel with the factory
-        settingsViewModel = ViewModelProvider(this, SettingsViewModelFactory(userPreference))
-            .get(SettingsViewModel::class.java)
+        settingsViewModel = ViewModelProvider(requireActivity()).get(SettingsViewModel::class.java)
 
-        // Fetch user profile
-        settingsViewModel.fetchUserProfile()
+        settingsViewModel.profile.observe(viewLifecycleOwner) { profile ->
+            profile?.data?.let {
+                binding.textViewName.text = it.name
+            }
+        }
 
-        // Observe profile data
-        settingsViewModel.profile.observe(viewLifecycleOwner, { profile ->
-            // Update the username in the UI
-            binding.textViewName.text = profile.data?.username
-        })
-
-        // Observe error messages
-        settingsViewModel.errorMessage.observe(viewLifecycleOwner, { errorMessage ->
-            // Show error message if any
-            Toast.makeText(requireContext(), errorMessage, Toast.LENGTH_SHORT).show()
-        })
-
-        // Handle Logout Button
         binding.buttonLogout.setOnClickListener {
             logout()
         }
 
-        // Set default values for the radio buttons
         setInitialTheme()
         setInitialLanguage()
 
-        // Handle Manage Account Button
-        binding.buttonManageAccount.setOnClickListener {
-            // Handle account management logic here
-        }
-
-        // Listen to language selection change
         binding.radioGroupLanguage.setOnCheckedChangeListener { _, checkedId ->
             val newLanguage = when (checkedId) {
                 binding.radioEnglish.id -> "en"
@@ -84,7 +64,6 @@ class SettingsFragment : Fragment() {
             Toast.makeText(requireContext(), "Language changed to $newLanguage", Toast.LENGTH_SHORT).show()
         }
 
-        // Listen to appearance selection change
         binding.radioGroupAppearance.setOnCheckedChangeListener { _, checkedId ->
             when (checkedId) {
                 binding.radioSystemDefault.id -> saveTheme("system")
@@ -137,10 +116,8 @@ class SettingsFragment : Fragment() {
         val context = requireContext().createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Simpan bahasa yang dipilih
         saveLanguage(languageCode)
-        // Trigger activity refresh with new language
-        requireActivity().recreate()  // Refresh activity for the language change
+        requireActivity().recreate()
     }
 
     private fun logout() {

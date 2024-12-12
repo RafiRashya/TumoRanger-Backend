@@ -15,13 +15,18 @@ import retrofit2.Response
 
 class SettingsViewModel(private val userPreference: UserPreference) : ViewModel() {
 
-    private val _profile = MutableLiveData<ProfileResponse>()
-    val profile: LiveData<ProfileResponse> get() = _profile
+    private val _profile = MutableLiveData<ProfileResponse?>()
+    val profile: LiveData<ProfileResponse?> get() = _profile
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
     fun fetchUserProfile() {
+        // Cek apakah data profil sudah ada, jika ada, tidak perlu fetch ulang
+        if (_profile.value != null) {
+            return
+        }
+
         viewModelScope.launch {
             val token = userPreference.getUser().first().token
             if (token.isEmpty()) {

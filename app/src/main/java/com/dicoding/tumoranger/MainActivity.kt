@@ -2,20 +2,30 @@ package com.dicoding.tumoranger
 
 import android.content.Intent
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.dicoding.tumoranger.data.UserPreference
+import com.dicoding.tumoranger.data.dataStore
 import com.dicoding.tumoranger.databinding.ActivityMainBinding
 import com.dicoding.tumoranger.ui.login.LoginActivity
+import com.dicoding.tumoranger.ui.settings.SettingsViewModel
+import com.dicoding.tumoranger.ui.settings.SettingsViewModelFactory
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    // ViewModel untuk Settings
+    private val settingsViewModel: SettingsViewModel by viewModels {
+        SettingsViewModelFactory(UserPreference.getInstance(dataStore))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         applySavedTheme()
@@ -34,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
         applySavedLanguage()
 
-        val navView: BottomNavigationView = binding.navView
+        val navView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
             setOf(
@@ -43,9 +53,24 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        fetchUserProfile()
     }
 
-    // Apply saved language from SharedPreferences
+    private fun fetchUserProfile() {
+        settingsViewModel.fetchUserProfile()
+        settingsViewModel.profile.observe(this) { profile ->
+            if (profile != null) {
+                Toast.makeText(this, "Welcome, ${profile.data.name}!", Toast.LENGTH_SHORT).show()
+            }
+        }
+        settingsViewModel.errorMessage.observe(this) { errorMessage ->
+            if (!errorMessage.isNullOrEmpty()) {
+                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
     private fun applySavedLanguage() {
         val sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE)
         val savedLanguage = sharedPreferences.getString("selected_language", Locale.getDefault().language)

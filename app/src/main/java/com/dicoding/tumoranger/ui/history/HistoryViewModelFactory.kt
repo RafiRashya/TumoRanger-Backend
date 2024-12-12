@@ -1,6 +1,5 @@
 package com.dicoding.tumoranger.ui.history
 
-import HistoryViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.dicoding.tumoranger.data.UserPreference

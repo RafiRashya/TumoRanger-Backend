@@ -1,6 +1,5 @@
 package com.dicoding.tumoranger.ui.history
 
-import HistoryViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

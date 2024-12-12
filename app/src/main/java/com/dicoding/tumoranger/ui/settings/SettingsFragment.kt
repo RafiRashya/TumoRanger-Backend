@@ -3,21 +3,17 @@ package com.dicoding.tumoranger.ui.settings
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.appcompat.app.AppCompatDelegate
-import com.dicoding.tumoranger.R
-import com.dicoding.tumoranger.databinding.FragmentSettingsBinding
-import com.dicoding.tumoranger.ui.login.LoginActivity
 import com.dicoding.tumoranger.data.UserPreference
 import com.dicoding.tumoranger.data.dataStore
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
+import com.dicoding.tumoranger.databinding.FragmentSettingsBinding
+import com.dicoding.tumoranger.ui.login.LoginActivity
 import java.util.Locale
 
 class SettingsFragment : Fragment() {

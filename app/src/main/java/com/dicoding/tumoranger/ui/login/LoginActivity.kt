@@ -21,6 +21,7 @@ import com.dicoding.tumoranger.data.dataStore
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.ui.register.RegisterActivity
 import kotlinx.coroutines.launch
+import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
 
@@ -57,9 +58,10 @@ class LoginActivity : AppCompatActivity() {
             }
         })
 
-        // LoginActivity.kt
         loginViewModel.loginResponse.observe(this@LoginActivity, Observer { loginResponse ->
             val loginResult = loginResponse ?: return@Observer
+
+            binding.loading.visibility = View.GONE // Hide loading indicator
 
             if (loginResult.status == 200) {
                 val token = loginResult.data?.token
@@ -70,9 +72,18 @@ class LoginActivity : AppCompatActivity() {
                     finish() // Close LoginActivity
                 }
             } else {
-                // Handle login failure
+                Snackbar.make(binding.root, loginResult.message, Snackbar.LENGTH_LONG).show()
             }
         })
+
+        loginViewModel.loginResult.observe(this@LoginActivity) { loginResult ->
+            binding.loading.visibility = View.GONE // Hide loading indicator
+            when (loginResult) {
+                "Network error" -> Snackbar.make(binding.root, getString(R.string.network_error_message), Snackbar.LENGTH_LONG).show()
+                "Login failed" -> Snackbar.make(binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_LONG).show()
+                else -> Snackbar.make(binding.root, loginResult ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG).show()
+            }
+        }
 
         username.afterTextChanged {
             loginViewModel.loginDataChanged(

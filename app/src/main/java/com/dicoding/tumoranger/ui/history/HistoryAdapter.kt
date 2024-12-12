@@ -3,10 +3,13 @@ package com.dicoding.tumoranger.ui.history
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.dicoding.tumoranger.R
 import com.dicoding.tumoranger.api.response.DiagnosisHistoryItem
+import java.util.Locale
 
 class HistoryAdapter(private val historyList: List<DiagnosisHistoryItem>) : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
@@ -29,14 +32,20 @@ class HistoryAdapter(private val historyList: List<DiagnosisHistoryItem>) : Recy
         private val resultTextView: TextView = itemView.findViewById(R.id.resultTextView)
         private val confidenceScoreTextView: TextView = itemView.findViewById(R.id.confidenceScoreTextView)
         private val diagnosisDateTextView: TextView = itemView.findViewById(R.id.diagnosisDateTextView)
+        private val imagePreview: ImageView = itemView.findViewById(R.id.imagePreview)
 
         fun bind(item: DiagnosisHistoryItem) {
             patientNameTextView.text = item.patient_name
             genderTextView.text = item.gender
             birthdateTextView.text = item.birthdate
             resultTextView.text = item.result
-            confidenceScoreTextView.text = item.confidence_score.toString()
+            confidenceScoreTextView.text = String.format(Locale.ROOT, "%d%%", item.confidence_score.toInt())
             diagnosisDateTextView.text = item.diagnosis_date
+
+            // Load the image using Glide
+            Glide.with(itemView.context)
+                .load(item.file_path)
+                .into(imagePreview)
         }
     }
 }

@@ -57,6 +57,9 @@ okhttp3 = { group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.1" }
 
 androidx-databinding = { group = "androidx.databinding", name = "databinding-runtime", version = "8.7.3" }
 
+glide = { group = "com.github.bumptech.glide", name = "glide", version = "4.12.0" }
+glide-compiler = { group = "com.github.bumptech.glide", name = "compiler", version = "4.12.0" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

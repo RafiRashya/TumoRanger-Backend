@@ -32,7 +32,8 @@ class HistoryViewModel(private val userPreference: UserPreference) : ViewModel()
             apiService.getDiagnosisHistory("Bearer $token").enqueue(object : Callback<DiagnosisHistoryResponse> {
                 override fun onResponse(call: Call<DiagnosisHistoryResponse>, response: Response<DiagnosisHistoryResponse>) {
                     if (response.isSuccessful) {
-                        _historyList.value = response.body()?.data ?: emptyList()
+                        val sortedList = response.body()?.data?.sortedByDescending { it.diagnosis_date } ?: emptyList()
+                        _historyList.value = sortedList
                     } else {
                         _errorMessage.value = "Failed to retrieve history: ${response.message()}"
                     }

@@ -52,10 +52,14 @@ class SettingsFragment : Fragment() {
 
         // Listen to language selection change
         binding.radioGroupLanguage.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-                binding.radioEnglish.id -> changeLanguage("en")
-                binding.radioIndonesian.id -> changeLanguage("in")
+            val newLanguage = when (checkedId) {
+                binding.radioEnglish.id -> "en"
+                binding.radioIndonesian.id -> "in"
+                else -> return@setOnCheckedChangeListener
             }
+            saveLanguage(newLanguage)
+            applyLanguage(newLanguage)
+            Toast.makeText(requireContext(), "Language changed to $newLanguage", Toast.LENGTH_SHORT).show()
         }
 
         // Listen to appearance selection change
@@ -90,11 +94,30 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setInitialLanguage() {
-        val locale = Locale.getDefault().language
-        when (locale) {
+        val savedLanguage = sharedPreferences.getString("selected_language", Locale.getDefault().language)
+        when (savedLanguage) {
             "en" -> binding.radioGroupLanguage.check(binding.radioEnglish.id)
-            "id" -> binding.radioGroupLanguage.check(binding.radioIndonesian.id)
+            "in" -> binding.radioGroupLanguage.check(binding.radioIndonesian.id)
         }
+    }
+
+    private fun saveLanguage(languageCode: String) {
+        sharedPreferences.edit().putString("selected_language", languageCode).apply()
+    }
+
+    private fun applyLanguage(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = resources.configuration
+        config.setLocale(locale)
+
+        // Apply the configuration changes directly
+        val context = requireContext().createConfigurationContext(config)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        // Trigger activity refresh without restarting the entire app
+        requireActivity().recreate()  // This will refresh the activity with the new language
     }
 
     private fun changeLanguage(languageCode: String) {

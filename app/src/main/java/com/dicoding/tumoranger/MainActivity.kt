@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    // ViewModel untuk Settings
     private val settingsViewModel: SettingsViewModel by viewModels {
         SettingsViewModelFactory(UserPreference.getInstance(dataStore))
     }
@@ -61,7 +60,6 @@ class MainActivity : AppCompatActivity() {
         settingsViewModel.fetchUserProfile()
         settingsViewModel.profile.observe(this) { profile ->
             if (profile != null) {
-                Toast.makeText(this, "Welcome, ${profile.data.name}!", Toast.LENGTH_SHORT).show()
             }
         }
         settingsViewModel.errorMessage.observe(this) { errorMessage ->

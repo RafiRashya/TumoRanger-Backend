@@ -1,7 +1,9 @@
 package com.dicoding.tumoranger.ui.result
 
+import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +15,8 @@ class ResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_result)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val resultImageView: ImageView = findViewById(R.id.resultImageView)
         val predictionTextView: TextView = findViewById(R.id.predictionTextView)
@@ -34,5 +38,17 @@ class ResultActivity : AppCompatActivity() {
         nameTextView.text = name
         birthdateTextView.text = birthdate
         genderTextView.text = gender
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // Handle the home button click event
+                setResult(Activity.RESULT_OK)
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

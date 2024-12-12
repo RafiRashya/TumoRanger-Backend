@@ -8,14 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.tumoranger.api.response.DiagnosisHistoryItem
-import com.dicoding.tumoranger.databinding.FragmentHistoryBinding
 import com.dicoding.tumoranger.data.UserPreference
 import com.dicoding.tumoranger.data.dataStore
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
+import com.dicoding.tumoranger.databinding.FragmentHistoryBinding
 
 class HistoryFragment : Fragment() {
 
@@ -41,6 +37,10 @@ class HistoryFragment : Fragment() {
 
         historyViewModel.errorMessage.observe(viewLifecycleOwner) { message ->
             Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
+        }
+
+        historyViewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            binding.loading.visibility = if (isLoading) View.VISIBLE else View.GONE
         }
 
         historyViewModel.fetchDiagnosisHistory()

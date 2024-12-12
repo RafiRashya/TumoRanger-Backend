@@ -8,13 +8,14 @@
     android:padding="16dp">
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginBottom="56dp"> <!-- Adjust margin to avoid overlap with BottomNavigationView -->
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"> <!-- Adjust margin to avoid overlap with BottomNavigationView -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -67,68 +68,81 @@
                 android:id="@+id/nameEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:padding="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/imageContainer"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/birthDateEditText"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageContainer" />
 
             <EditText
                 android:id="@+id/birthDateEditText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:focusable="false"
                 android:hint="@string/birth"
                 android:inputType="none"
-                android:focusable="false"
                 android:padding="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/nameEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/genderRadioGroup"
-                android:layout_marginTop="16dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/nameEditText" />
 
             <RadioGroup
                 android:id="@+id/genderRadioGroup"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/birthDateEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toTopOf="@+id/analyzeButton"
-                android:layout_marginTop="16dp">
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/birthDateEditText">
 
                 <RadioButton
                     android:id="@+id/maleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/male"
-                    android:padding="8dp" />
+                    android:padding="8dp"
+                    android:text="@string/male" />
 
                 <RadioButton
                     android:id="@+id/femaleRadioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/female"
+                    android:layout_marginStart="16dp"
                     android:padding="8dp"
-                    android:layout_marginStart="16dp" />
+                    android:text="@string/female" />
             </RadioGroup>
 
             <Button
                 android:id="@+id/analyzeButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/analyze"
+                android:layout_marginBottom="32dp"
                 android:padding="12dp"
+                android:text="@string/analyze"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="32dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="64dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

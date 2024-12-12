@@ -3,8 +3,6 @@ package com.dicoding.tumoranger.ui.scan
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -12,20 +10,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.dicoding.tumoranger.api.RetrofitClient
 import com.dicoding.tumoranger.R
+import com.dicoding.tumoranger.api.RetrofitClient
 import com.dicoding.tumoranger.api.response.DiagnoseResponse
-import com.dicoding.tumoranger.databinding.FragmentScanBinding
-import com.dicoding.tumoranger.ui.result.ResultActivity
 import com.dicoding.tumoranger.data.UserPreference
 import com.dicoding.tumoranger.data.dataStore
+import com.dicoding.tumoranger.databinding.FragmentScanBinding
 import com.dicoding.tumoranger.ui.login.LoginActivity
+import com.dicoding.tumoranger.ui.result.ResultActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -36,8 +38,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
-import java.io.FileOutputStream
-import java.io.IOException
 import java.util.Calendar
 
 class ScanFragment : Fragment() {
@@ -218,6 +218,8 @@ class ScanFragment : Fragment() {
         val birthdateBody = birthdate.toRequestBody("text/plain".toMediaTypeOrNull())
         val genderBody = gender.toRequestBody("text/plain".toMediaTypeOrNull())
 
+        binding.loading.visibility = View.VISIBLE
+
         lifecycleScope.launch {
             val token = UserPreference.getInstance(requireContext().dataStore).getUser().first().token
             if (token.isEmpty()) {
@@ -233,10 +235,14 @@ class ScanFragment : Fragment() {
 
             call.enqueue(object : Callback<DiagnoseResponse> {
                 override fun onResponse(call: Call<DiagnoseResponse>, response: Response<DiagnoseResponse>) {
+
+                    binding.loading.visibility = View.GONE
+
                     if (response.isSuccessful) {
                         val diagnosis = response.body()?.diagnosis
                         if (diagnosis != null) {
                             moveToResult(imageUri, name, birthdate, gender, diagnosis.prediction, diagnosis.confidenceScore)
+                            binding.loading.visibility = View.GONE
                             Log.d("ScanFragment", "Diagnosis successful: ${diagnosis.prediction}, ${diagnosis.confidenceScore}")
                         } else {
                             showToast("Failed to get diagnosis")
@@ -255,6 +261,7 @@ class ScanFragment : Fragment() {
                 }
 
                 override fun onFailure(call: Call<DiagnoseResponse>, t: Throwable) {
+                    binding.loading.visibility = View.GONE
                     showToast("Failed to analyze image: ${t.message}")
                     Log.d("ScanFragment", "Failed to analyze image: ${t.message}")
                 }

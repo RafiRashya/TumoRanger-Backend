@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -21,7 +22,6 @@ import com.dicoding.tumoranger.data.dataStore
 import com.dicoding.tumoranger.databinding.ActivityLoginBinding
 import com.dicoding.tumoranger.ui.register.RegisterActivity
 import kotlinx.coroutines.launch
-import com.google.android.material.snackbar.Snackbar
 
 class LoginActivity : AppCompatActivity() {
 
@@ -72,16 +72,16 @@ class LoginActivity : AppCompatActivity() {
                     finish() // Close LoginActivity
                 }
             } else {
-                Snackbar.make(binding.root, loginResult.message, Snackbar.LENGTH_LONG).show()
+                Toast.makeText(this, loginResult.message, Toast.LENGTH_LONG).show()
             }
         })
 
         loginViewModel.loginResult.observe(this@LoginActivity) { loginResult ->
             binding.loading.visibility = View.GONE // Hide loading indicator
             when (loginResult) {
-                "Network error" -> Snackbar.make(binding.root, getString(R.string.network_error_message), Snackbar.LENGTH_LONG).show()
-                "Login failed" -> Snackbar.make(binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_LONG).show()
-                else -> Snackbar.make(binding.root, loginResult ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG).show()
+                "Network error" -> Toast.makeText(this, getString(R.string.network_error_message), Toast.LENGTH_LONG).show()
+                "Login failed" -> Toast.makeText(this, getString(R.string.login_failed_message), Toast.LENGTH_LONG).show()
+                else -> Toast.makeText(this, loginResult ?: getString(R.string.unknown_error), Toast.LENGTH_LONG).show()
             }
         }
 

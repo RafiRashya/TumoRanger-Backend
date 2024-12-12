@@ -112,13 +112,15 @@ class SettingsFragment : Fragment() {
         val config = resources.configuration
         config.setLocale(locale)
 
-        // Apply the configuration changes directly
         val context = requireContext().createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Trigger activity refresh without restarting the entire app
-        requireActivity().recreate()  // This will refresh the activity with the new language
+        // Simpan bahasa yang dipilih
+        saveLanguage(languageCode)
+        // Trigger activity refresh with new language
+        requireActivity().recreate()  // Refresh activity for the language change
     }
+
 
     private fun changeLanguage(languageCode: String) {
         Log.d("SettingsFragment", "Changing language to: $languageCode")

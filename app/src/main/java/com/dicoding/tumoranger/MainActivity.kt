@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.dicoding.tumoranger.databinding.ActivityMainBinding
 import com.dicoding.tumoranger.ui.login.LoginActivity
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        applySavedLanguage()
+
         val navView: BottomNavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_activity_main)
         val appBarConfiguration = AppBarConfiguration(
@@ -40,6 +43,34 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    // Apply saved language from SharedPreferences
+    private fun applySavedLanguage() {
+        val sharedPreferences = getSharedPreferences("theme_prefs", MODE_PRIVATE)
+        val savedLanguage = sharedPreferences.getString("selected_language", Locale.getDefault().language)
+        val currentLanguage = Locale.getDefault().language
+
+        if (savedLanguage != currentLanguage) {
+            applyLanguage(savedLanguage ?: Locale.getDefault().language)
+        }
+    }
+
+    private fun applyLanguage(languageCode: String) {
+        val locale = Locale(languageCode)
+        Locale.setDefault(locale)
+
+        val config = resources.configuration
+        config.setLocale(locale)
+
+        val context = createConfigurationContext(config)
+        resources.updateConfiguration(config, resources.displayMetrics)
+
+        supportActionBar?.apply {
+            title = getString(R.string.app_name)
+        }
+
+        recreate()
     }
 
     private fun applySavedTheme() {

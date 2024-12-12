@@ -31,7 +31,7 @@ class SettingsFragment : Fragment() {
         val root: View = binding.root
 
         // Initialize SharedPreferences
-        sharedPreferences = requireActivity().getSharedPreferences("settings_prefs", Context.MODE_PRIVATE)
+        sharedPreferences = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
 
         // Handle Logout Button
         binding.buttonLogout.setOnClickListener {
@@ -52,18 +52,11 @@ class SettingsFragment : Fragment() {
 
         // Listen to language selection change
         binding.radioGroupLanguage.setOnCheckedChangeListener { _, checkedId ->
-            val newLanguage = when (checkedId) {
-                binding.radioEnglish.id -> "en"
-                binding.radioIndonesian.id -> "in"
-                else -> return@setOnCheckedChangeListener
-            }
-            val currentLanguage = sharedPreferences.getString("selected_language", Locale.getDefault().language)
-            if (newLanguage != currentLanguage) {
-                saveLanguage(newLanguage)
-                applyLanguage(newLanguage)
+            when (checkedId) {
+                binding.radioEnglish.id -> changeLanguage("en")
+                binding.radioIndonesian.id -> changeLanguage("in")
             }
         }
-
 
         // Listen to appearance selection change
         binding.radioGroupAppearance.setOnCheckedChangeListener { _, checkedId ->
@@ -97,54 +90,28 @@ class SettingsFragment : Fragment() {
     }
 
     private fun setInitialLanguage() {
-        val savedLanguage = sharedPreferences.getString("selected_language", Locale.getDefault().language)
-        Log.d("SettingsFragment", "Saved language in SharedPreferences: $savedLanguage")
-
-        when (savedLanguage) {
+        val locale = Locale.getDefault().language
+        when (locale) {
             "en" -> binding.radioGroupLanguage.check(binding.radioEnglish.id)
-            "in" -> binding.radioGroupLanguage.check(binding.radioIndonesian.id)
+            "id" -> binding.radioGroupLanguage.check(binding.radioIndonesian.id)
         }
-    }
-
-    private fun saveLanguage(languageCode: String) {
-        // Simpan bahasa yang dipilih ke SharedPreferences
-        sharedPreferences.edit()
-            .putString("selected_language", languageCode)
-            .apply()
     }
 
     private fun changeLanguage(languageCode: String) {
         Log.d("SettingsFragment", "Changing language to: $languageCode")
-        sharedPreferences.edit().putString("selected_language", languageCode).apply()
-        applyLanguage(languageCode)
-
-        requireActivity().recreate()
-        Toast.makeText(requireContext(), "Language changed to $languageCode", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun applyLanguage(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
 
         val config = resources.configuration
         config.setLocale(locale)
-        config.setLayoutDirection(locale)
 
-        // Terapkan konfigurasi baru menggunakan createConfigurationContext
-        requireActivity().apply {
-            baseContext.createConfigurationContext(config)
-        }
-        Log.d("SettingsFragment", "Configuration locale after applying: ${config.locales[0]}")
-
-        // Restart aktivitas untuk menerapkan perubahan bahasa
-        val refreshIntent = Intent(requireContext(), requireActivity()::class.java)
-        startActivity(refreshIntent)
+        val context = requireContext().createConfigurationContext(config)
+        val intent = Intent(context, requireActivity()::class.java)
+        startActivity(intent)
         requireActivity().finish()
 
-        // Tampilkan toast konfirmasi
         Toast.makeText(requireContext(), "Language changed to $languageCode", Toast.LENGTH_SHORT).show()
     }
-
 
     private fun logout() {
         val sharedPreferences = requireActivity().getSharedPreferences("user_prefs", Context.MODE_PRIVATE)

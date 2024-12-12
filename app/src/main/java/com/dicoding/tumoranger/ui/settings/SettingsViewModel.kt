@@ -1,32 +1,32 @@
 package com.dicoding.tumoranger.ui.settings
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dicoding.tumoranger.api.RetrofitClient
 import com.dicoding.tumoranger.api.response.ProfileResponse
 import com.dicoding.tumoranger.data.UserPreference
+import com.dicoding.tumoranger.data.local.AppDatabase
+import com.dicoding.tumoranger.data.local.entity.UserProfile
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class SettingsViewModel(private val userPreference: UserPreference) : ViewModel() {
+class SettingsViewModel(application: Application, private val userPreference: UserPreference) : AndroidViewModel(application) {
 
-    private val _profile = MutableLiveData<ProfileResponse?>()
-    val profile: LiveData<ProfileResponse?> get() = _profile
+    private val database = AppDatabase.getDatabase(application)
+    private val userProfileDao = database.userProfileDao()
+
+    val userProfile: LiveData<UserProfile> = userProfileDao.getUserProfile()
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
     fun fetchUserProfile() {
-        // Cek apakah data profil sudah ada, jika ada, tidak perlu fetch ulang
-        if (_profile.value != null) {
-            return
-        }
-
         viewModelScope.launch {
             val token = userPreference.getUser().first().token
             if (token.isEmpty()) {
@@ -38,7 +38,16 @@ class SettingsViewModel(private val userPreference: UserPreference) : ViewModel(
             apiService.getUserProfile("Bearer $token").enqueue(object : Callback<ProfileResponse> {
                 override fun onResponse(call: Call<ProfileResponse>, response: Response<ProfileResponse>) {
                     if (response.isSuccessful) {
-                        _profile.value = response.body()
+                        response.body()?.data?.let { profileData ->
+                            val userProfile = UserProfile(
+                                id = 0,
+                                username = profileData.name,
+                                email = profileData.email
+                            )
+                            viewModelScope.launch {
+                                userProfileDao.insertUserProfile(userProfile)
+                            }
+                        }
                     } else {
                         _errorMessage.value = "Failed to retrieve profile: ${response.message()}"
                     }

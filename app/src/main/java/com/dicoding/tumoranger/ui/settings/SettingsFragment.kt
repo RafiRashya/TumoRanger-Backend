@@ -34,11 +34,11 @@ class SettingsFragment : Fragment() {
         userPreference = UserPreference.getInstance(requireContext().dataStore)
         sharedPreferences = requireActivity().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE)
 
-        settingsViewModel = ViewModelProvider(requireActivity()).get(SettingsViewModel::class.java)
+        settingsViewModel = ViewModelProvider(this, SettingsViewModelFactory(requireActivity().application, userPreference)).get(SettingsViewModel::class.java)
 
-        settingsViewModel.profile.observe(viewLifecycleOwner) { profile ->
-            profile?.data?.let {
-                binding.textViewName.text = it.name
+        settingsViewModel.userProfile.observe(viewLifecycleOwner) { profile ->
+            profile?.let {
+                binding.textViewName.text = it.username
             }
         }
 
@@ -109,7 +109,7 @@ class SettingsFragment : Fragment() {
         val config = resources.configuration
         config.setLocale(locale)
 
-        val context = requireContext().createConfigurationContext(config)
+        requireContext().createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
 
         saveLanguage(languageCode)

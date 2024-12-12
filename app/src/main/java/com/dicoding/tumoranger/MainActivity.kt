@@ -2,7 +2,7 @@ package com.dicoding.tumoranger
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -16,14 +16,14 @@ import com.dicoding.tumoranger.databinding.ActivityMainBinding
 import com.dicoding.tumoranger.ui.login.LoginActivity
 import com.dicoding.tumoranger.ui.settings.SettingsViewModel
 import com.dicoding.tumoranger.ui.settings.SettingsViewModelFactory
-import java.util.*
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private val settingsViewModel: SettingsViewModel by viewModels {
-        SettingsViewModelFactory(UserPreference.getInstance(dataStore))
+        SettingsViewModelFactory(application, UserPreference.getInstance(dataStore))
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,13 +58,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchUserProfile() {
         settingsViewModel.fetchUserProfile()
-        settingsViewModel.profile.observe(this) { profile ->
+        settingsViewModel.userProfile.observe(this) { profile ->
             if (profile != null) {
+                Log.d("SettingsFragment", "Profile data: $profile")
+                // Handle the profile data
             }
         }
         settingsViewModel.errorMessage.observe(this) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
-                Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
+            Log.d("SettingsFragment", errorMessage)
             }
         }
     }
@@ -86,7 +88,7 @@ class MainActivity : AppCompatActivity() {
         val config = resources.configuration
         config.setLocale(locale)
 
-        val context = createConfigurationContext(config)
+        createConfigurationContext(config)
         resources.updateConfiguration(config, resources.displayMetrics)
 
         supportActionBar?.apply {

@@ -136,6 +136,22 @@ class ScanFragment : Fragment() {
         Log.d("ScanFragment", "Toast shown: $message")
     }
 
+
+    private val resultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Clear the form fields
+            nameEditText.text.clear()
+            birthdateEditText.text.clear()
+            genderRadioGroup.clearCheck()
+
+            // Unload the image
+            imageView.setImageURI(null)
+            imageView.visibility = View.GONE
+            addImageButton.visibility = View.VISIBLE
+            changeImageButton.visibility = View.GONE
+        }
+    }
+
     private fun moveToResult(imageUri: Uri, name: String, birthdate: String, gender: String, prediction: String, confidenceScore: Double) {
         val intent = Intent(context, ResultActivity::class.java)
         intent.putExtra("IMAGE_URI", imageUri.toString())
@@ -145,6 +161,7 @@ class ScanFragment : Fragment() {
         intent.putExtra("PREDICTION", prediction)
         intent.putExtra("CONFIDENCE_SCORE", confidenceScore.toString())
         startActivity(intent)
+        resultLauncher.launch(intent)
         Log.d("ScanFragment", "Moving to ResultActivity with data: $name, $birthdate, $gender, $prediction, $confidenceScore")
     }
 
@@ -244,6 +261,7 @@ class ScanFragment : Fragment() {
             })
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

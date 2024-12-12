@@ -54,4 +54,7 @@
 
     <string name="change_image">change image</string>
     <string name="diagnosis_date">Diagnosis Date</string>
+    <string name="network_error_message">Network Error</string>
+    <string name="login_failed_message">Login Failed, Wrong Account or Password</string>
+    <string name="unknown_error">Unknown Error</string>
 </resources>

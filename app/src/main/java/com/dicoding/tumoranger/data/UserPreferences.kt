@@ -31,18 +31,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
         }
     }
 
-    fun getTheme(): Flow<String> {
-        return dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.THEME] ?: "system" // Default system theme
-        }
-    }
-
-    suspend fun saveTheme(theme: String) {
-        dataStore.edit { preferences ->
-            preferences[PreferencesKeys.THEME] = theme
-        }
-    }
-
     suspend fun getLanguage(): String {
         var language = "en" // Nilai default
         dataStore.data.collect { preferences ->

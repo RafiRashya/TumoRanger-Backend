@@ -1,0 +1,50 @@
+<resources>
+    <string name="app_name">TumoRanger</string>
+    <string name="title_scan">Pindai</string>
+    <string name="title_history">Riwayat</string>
+    <string name="title_settings">Pengaturan</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="prompt_username">Nama Pengguna</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Kata Sandi</string>
+    <string name="action_sign_in">Masuk</string>
+    <string name="action_sign_in_short">Masuk</string>
+    <string name="welcome">Selamat Datang!</string>
+    <string name="invalid_username">Nama pengguna tidak valid</string>
+    <string name="invalid_password">Kata sandi harus lebih dari 5 karakter</string>
+    <string name="invalid_email">Email tidak valid</string>
+    <string name="login_failed">Gagal masuk</string>
+    <string name="analyze">Analisis</string>
+    <string name="add_image">Tambah Gambar</string>
+    <string name="action_register">Daftar</string>
+    <string name="female">Perempuan</string>
+    <string name="male">Laki-laki</string>
+    <string name="birth">Tanggal Lahir</string>
+    <string name="name">Nama</string>
+    <string name="logout">Keluar</string>
+    <string name="prediction">Prediksi</string>
+    <string name="confidence_score">Skor Keyakinan</string>
+    <string name="gender">Jenis Kelamin</string>
+    <string name="birthdate">Tanggal Lahir</string>
+    <string name="patient_name">Nama Pasien</string>
+    <string name="sign_up">Daftar</string>
+    <string name="title_app">Tumoranger</string>
+    <string name="result">Hasil</string>
+    <string name="manage_account">Kelola Akun Google Anda</string>
+    <string name="language">Bahasa</string>
+    <string name="appearance">Tampilan</string>
+    <string name="system_default">Bawaan Sistem</string>
+    <string name="light">Terang</string>
+    <string name="dark">Gelap</string>
+    <string name="english">Inggris</string>
+    <string name="zimbabwe">Indonesia</string>
+    <string name="language_changed">Language changed</string>
+
+    <string name="change_image">change image</string>
+    <string name="diagnosis_date">Diagnosis Date</string>
+    <string name="network_error_message">Network Error</string>
+    <string name="login_failed_message">Login Failed, Wrong Account or Password</string>
+    <string name="unknown_error">Unknown Error</string>
+
+</resources>

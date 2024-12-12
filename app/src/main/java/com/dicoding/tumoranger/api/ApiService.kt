@@ -34,5 +34,9 @@ interface ApiService {
         @Part("gender") gender: RequestBody
     ): Call<DiagnoseResponse>
 
+    @GET("/profile")
+    fun getUserProfile(
+        @Header("Authorization") token: String
+    ): Call<ProfileResponse>
 
 }

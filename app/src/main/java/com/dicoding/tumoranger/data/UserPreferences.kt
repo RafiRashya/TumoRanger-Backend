@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
 
-class UserPreference private constructor(private val dataStore: DataStore<Preferences>) {
+class UserPreference constructor(private val dataStore: DataStore<Preferences>) {
 
     private val TOKEN_KEY = stringPreferencesKey("token")
     private val IS_LOGGED_IN_KEY = booleanPreferencesKey("is_logged_in")
@@ -48,7 +48,6 @@ class UserPreference private constructor(private val dataStore: DataStore<Prefer
 
     private object PreferencesKeys {
         val LANGUAGE = stringPreferencesKey("language_key")
-        val THEME = stringPreferencesKey("theme_key")
     }
 
     suspend fun saveUser(user: User) {

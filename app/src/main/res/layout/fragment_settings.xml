@@ -38,7 +38,7 @@
                 android:id="@+id/textView_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ayato Lebah"
+                android:text="pppp"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 app:layout_constraintTop_toBottomOf="@id/profile_image"

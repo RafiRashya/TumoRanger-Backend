@@ -1,0 +1,124 @@
+Index: app/src/main/res/layout/fragment_scan.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<androidx.constraintlayout.widget.ConstraintLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\r\n    xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:tools=\"http://schemas.android.com/tools\"\r\n    android:layout_width=\"match_parent\"\r\n    android:layout_height=\"match_parent\"\r\n    tools:context=\".ui.scan.ScanFragment\"\r\n    android:padding=\"16dp\">\r\n\r\n    <ScrollView\r\n        android:layout_width=\"0dp\"\r\n        android:layout_height=\"0dp\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        android:layout_marginBottom=\"56dp\"> <!-- Adjust margin to avoid overlap with BottomNavigationView -->\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\">\r\n\r\n            <LinearLayout\r\n                android:id=\"@+id/imageContainer\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"350dp\"\r\n                android:gravity=\"center\"\r\n                app:layout_constraintBottom_toTopOf=\"@+id/nameEditText\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\">\r\n\r\n                <ImageView\r\n                    android:id=\"@+id/previewImageView\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginBottom=\"16dp\"\r\n                    android:minWidth=\"400dp\"\r\n                    android:minHeight=\"400dp\"\r\n                    android:scaleType=\"centerCrop\"\r\n                    android:visibility=\"gone\" />\r\n\r\n                <Button\r\n                    android:id=\"@+id/addImageButton\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:layout_marginTop=\"8dp\"\r\n                    android:elevation=\"0dp\"\r\n                    android:gravity=\"center_horizontal\"\r\n                    android:padding=\"8dp\"\r\n                    android:text=\"@string/add_image\" />\r\n\r\n            </LinearLayout>\r\n\r\n            <Button\r\n                android:id=\"@+id/changeImageButton\"\r\n                android:layout_width=\"wrap_content\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:layout_marginTop=\"8dp\"\r\n                android:layout_marginEnd=\"8dp\"\r\n                android:text=\"@string/change_image\"\r\n                android:visibility=\"gone\"\r\n                app:layout_constraintEnd_toEndOf=\"@+id/imageContainer\"\r\n                app:layout_constraintTop_toTopOf=\"@+id/imageContainer\" />\r\n\r\n            <EditText\r\n                android:id=\"@+id/nameEditText\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:hint=\"@string/name\"\r\n                android:inputType=\"textPersonName\"\r\n                android:padding=\"12dp\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/imageContainer\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintBottom_toTopOf=\"@+id/birthDateEditText\"\r\n                android:layout_marginTop=\"16dp\" />\r\n\r\n            <EditText\r\n                android:id=\"@+id/birthDateEditText\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:hint=\"@string/birth\"\r\n                android:inputType=\"none\"\r\n                android:focusable=\"false\"\r\n                android:padding=\"12dp\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/nameEditText\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintBottom_toTopOf=\"@+id/genderRadioGroup\"\r\n                android:layout_marginTop=\"16dp\" />\r\n\r\n            <RadioGroup\r\n                android:id=\"@+id/genderRadioGroup\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:orientation=\"horizontal\"\r\n                app:layout_constraintTop_toBottomOf=\"@+id/birthDateEditText\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintBottom_toTopOf=\"@+id/analyzeButton\"\r\n                android:layout_marginTop=\"16dp\">\r\n\r\n                <RadioButton\r\n                    android:id=\"@+id/maleRadioButton\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"@string/male\"\r\n                    android:padding=\"8dp\" />\r\n\r\n                <RadioButton\r\n                    android:id=\"@+id/femaleRadioButton\"\r\n                    android:layout_width=\"wrap_content\"\r\n                    android:layout_height=\"wrap_content\"\r\n                    android:text=\"@string/female\"\r\n                    android:padding=\"8dp\"\r\n                    android:layout_marginStart=\"16dp\" />\r\n            </RadioGroup>\r\n\r\n            <Button\r\n                android:id=\"@+id/analyzeButton\"\r\n                android:layout_width=\"0dp\"\r\n                android:layout_height=\"wrap_content\"\r\n                android:text=\"@string/analyze\"\r\n                android:padding=\"12dp\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                android:layout_marginBottom=\"32dp\" />\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </ScrollView>\r\n</androidx.constraintlayout.widget.ConstraintLayout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_scan.xml b/app/src/main/res/layout/fragment_scan.xml
+--- a/app/src/main/res/layout/fragment_scan.xml	(revision 47c4933cb04f4e892159e6e08f87ef7491105636)
++++ b/app/src/main/res/layout/fragment_scan.xml	(date 1733985141382)
+@@ -130,4 +130,5 @@
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </ScrollView>
++
+ </androidx.constraintlayout.widget.ConstraintLayout>
+\ No newline at end of file
+Index: app/src/main/java/com/dicoding/tumoranger/ui/login/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.dicoding.tumoranger.ui.login\r\n\r\nimport android.content.Context\r\nimport android.content.Intent\r\nimport android.os.Bundle\r\nimport android.text.Editable\r\nimport android.text.TextWatcher\r\nimport android.view.View\r\nimport android.view.inputmethod.EditorInfo\r\nimport android.widget.EditText\r\nimport android.widget.TextView\r\nimport androidx.activity.viewModels\r\nimport androidx.appcompat.app.AppCompatActivity\r\nimport androidx.lifecycle.Observer\r\nimport androidx.lifecycle.lifecycleScope\r\nimport com.dicoding.tumoranger.MainActivity\r\nimport com.dicoding.tumoranger.R\r\nimport com.dicoding.tumoranger.data.User\r\nimport com.dicoding.tumoranger.data.UserPreference\r\nimport com.dicoding.tumoranger.data.dataStore\r\nimport com.dicoding.tumoranger.databinding.ActivityLoginBinding\r\nimport com.dicoding.tumoranger.ui.register.RegisterActivity\r\nimport kotlinx.coroutines.launch\r\n\r\nclass LoginActivity : AppCompatActivity() {\r\n\r\n    private val loginViewModel: LoginViewModel by viewModels()\r\n    private lateinit var binding: ActivityLoginBinding\r\n\r\n    override fun onCreate(savedInstanceState: Bundle?) {\r\n        super.onCreate(savedInstanceState)\r\n        binding = ActivityLoginBinding.inflate(layoutInflater)\r\n        setContentView(binding.root)\r\n        supportActionBar?.hide()\r\n\r\n        val username = binding.username\r\n        val password = binding.password\r\n        val loading = binding.loading\r\n\r\n        val signUpTextView: TextView = findViewById(R.id.signUpTextView)\r\n        signUpTextView.setOnClickListener {\r\n            // Handle the click event\r\n            val intent = Intent(this, RegisterActivity::class.java)\r\n            startActivity(intent)\r\n        }\r\n\r\n        loginViewModel.loginFormState.observe(this@LoginActivity, Observer {\r\n            val loginState = it ?: return@Observer\r\n\r\n            binding.login.isEnabled = loginState.isDataValid\r\n\r\n            if (loginState.usernameError != null) {\r\n                username.error = getString(loginState.usernameError)\r\n            }\r\n            if (loginState.passwordError != null) {\r\n                password.error = getString(loginState.passwordError)\r\n            }\r\n        })\r\n\r\n        // LoginActivity.kt\r\n        loginViewModel.loginResponse.observe(this@LoginActivity, Observer { loginResponse ->\r\n            val loginResult = loginResponse ?: return@Observer\r\n\r\n            if (loginResult.status == 200) {\r\n                val token = loginResult.data?.token\r\n                if (token != null) {\r\n                    saveLoginState(token)\r\n                    val intent = Intent(this, MainActivity::class.java)\r\n                    startActivity(intent)\r\n                    finish() // Close LoginActivity\r\n                }\r\n            } else {\r\n                // Handle login failure\r\n            }\r\n        })\r\n\r\n        username.afterTextChanged {\r\n            loginViewModel.loginDataChanged(\r\n                username.text.toString(),\r\n                password.text.toString()\r\n            )\r\n        }\r\n\r\n        password.apply {\r\n            afterTextChanged {\r\n                loginViewModel.loginDataChanged(\r\n                    username.text.toString(),\r\n                    password.text.toString()\r\n                )\r\n            }\r\n\r\n            setOnEditorActionListener { _, actionId, _ ->\r\n                when (actionId) {\r\n                    EditorInfo.IME_ACTION_DONE ->\r\n                        loginViewModel.loginUser(\r\n                            username.text.toString(),\r\n                            password.text.toString()\r\n                        )\r\n                }\r\n                false\r\n            }\r\n\r\n            binding.login.setOnClickListener {\r\n                loading.visibility = View.VISIBLE\r\n                loginViewModel.loginUser(username.text.toString(), password.text.toString())\r\n            }\r\n        }\r\n    }\r\n\r\n    private fun saveLoginState(token: String) {\r\n\r\n        val sharedPreferences = getSharedPreferences(\"user_prefs\", Context.MODE_PRIVATE)\r\n        with(sharedPreferences.edit()) {\r\n            putBoolean(\"is_logged_in\", true)\r\n            putString(\"auth_token\", token)\r\n            apply()\r\n        }\r\n        lifecycleScope.launch {\r\n            val userPreference = UserPreference.getInstance(dataStore)\r\n            userPreference.saveUser(User(token))\r\n        }\r\n    }\r\n}\r\n\r\n/**\r\n * Extension function to simplify setting an afterTextChanged action to EditText components.\r\n */\r\nfun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {\r\n    this.addTextChangedListener(object : TextWatcher {\r\n        override fun afterTextChanged(editable: Editable?) {\r\n            afterTextChanged.invoke(editable.toString())\r\n        }\r\n\r\n        override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}\r\n\r\n        override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}\r\n    })\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/dicoding/tumoranger/ui/login/LoginActivity.kt b/app/src/main/java/com/dicoding/tumoranger/ui/login/LoginActivity.kt
+--- a/app/src/main/java/com/dicoding/tumoranger/ui/login/LoginActivity.kt	(revision 47c4933cb04f4e892159e6e08f87ef7491105636)
++++ b/app/src/main/java/com/dicoding/tumoranger/ui/login/LoginActivity.kt	(date 1733983920371)
+@@ -21,6 +21,7 @@
+ import com.dicoding.tumoranger.databinding.ActivityLoginBinding
+ import com.dicoding.tumoranger.ui.register.RegisterActivity
+ import kotlinx.coroutines.launch
++import com.google.android.material.snackbar.Snackbar
+ 
+ class LoginActivity : AppCompatActivity() {
+ 
+@@ -57,10 +58,11 @@
+             }
+         })
+ 
+-        // LoginActivity.kt
+         loginViewModel.loginResponse.observe(this@LoginActivity, Observer { loginResponse ->
+             val loginResult = loginResponse ?: return@Observer
+ 
++            binding.loading.visibility = View.GONE // Hide loading indicator
++
+             if (loginResult.status == 200) {
+                 val token = loginResult.data?.token
+                 if (token != null) {
+@@ -70,9 +72,18 @@
+                     finish() // Close LoginActivity
+                 }
+             } else {
+-                // Handle login failure
++                Snackbar.make(binding.root, loginResult.message, Snackbar.LENGTH_LONG).show()
+             }
+         })
++
++        loginViewModel.loginResult.observe(this@LoginActivity) { loginResult ->
++            binding.loading.visibility = View.GONE // Hide loading indicator
++            when (loginResult) {
++                "Network error" -> Snackbar.make(binding.root, getString(R.string.network_error_message), Snackbar.LENGTH_LONG).show()
++                "Login failed" -> Snackbar.make(binding.root, getString(R.string.login_failed_message), Snackbar.LENGTH_LONG).show()
++                else -> Snackbar.make(binding.root, loginResult ?: getString(R.string.unknown_error), Snackbar.LENGTH_LONG).show()
++            }
++        }
+ 
+         username.afterTextChanged {
+             loginViewModel.loginDataChanged(
+Index: app/src/main/res/values/strings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><resources>\r\n    <string name=\"app_name\">TumoRanger</string>\r\n    <string name=\"title_app\">Tumoranger</string>\r\n    <string name=\"title_scan\">Scan</string>\r\n    <string name=\"title_history\">History</string>\r\n    <string name=\"title_settings\">Settings</string>\r\n\r\n    <string name=\"title_activity_login\">LoginActivity</string>\r\n    <string name=\"title_activity_register\">RegisterActivity</string>\r\n\r\n    <string name=\"prompt_username\">Username</string>\r\n    <string name=\"prompt_email\">Email</string>\r\n    <string name=\"prompt_password\">Password</string>\r\n\r\n    <string name=\"action_sign_in\">Log in</string>\r\n    <string name=\"action_sign_in_short\">Sign in</string>\r\n    <string name=\"action_register\">Register</string>\r\n    <string name=\"logout\">logout</string>\r\n    <string name=\"sign_up\">Sign Up</string>\r\n\r\n    <string name=\"welcome\">\"Welcome !\"</string>\r\n\r\n    <string name=\"invalid_username\">Not a valid username</string>\r\n    <string name=\"invalid_password\">Password must be >5 characters</string>\r\n    <string name=\"invalid_email\">Not a valid email</string>\r\n    <string name=\"login_failed\">\"Login failed\"</string>\r\n\r\n    <string name=\"analyze\">Analyze</string>\r\n    <string name=\"add_image\">Add Image</string>\r\n\r\n    <string name=\"gender\">Gender</string>\r\n    <string name=\"female\">Female</string>\r\n    <string name=\"male\">Male</string>\r\n\r\n    <string name=\"birthdate\">Birthdate</string>\r\n    <string name=\"birth\">Birth</string>\r\n    <string name=\"patient_name\">Patient Name</string>\r\n    <string name=\"name\">Name</string>\r\n\r\n    <string name=\"prediction\">Prediction</string>\r\n    <string name=\"confidence_score\">Confidence Score</string>\r\n\r\n    <string name=\"result\">Result</string>\r\n\r\n    <string name=\"manage_account\">Manage your Google Account</string>\r\n    <string name=\"language\">Language</string>\r\n    <string name=\"appearance\">Appearance</string>\r\n    <string name=\"system_default\">System default</string>\r\n    <string name=\"light\">Light</string>\r\n    <string name=\"dark\">Dark</string>\r\n    <string name=\"english\">English</string>\r\n    <string name=\"zimbabwe\">Zimbabwe</string>\r\n    <string name=\"change_image\">change image</string>\r\n    <string name=\"diagnosis_date\">Diagnosis Date</string>\r\n</resources>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/values/strings.xml b/app/src/main/res/values/strings.xml
+--- a/app/src/main/res/values/strings.xml	(revision 47c4933cb04f4e892159e6e08f87ef7491105636)
++++ b/app/src/main/res/values/strings.xml	(date 1733984140528)
+@@ -52,4 +52,8 @@
+     <string name="zimbabwe">Zimbabwe</string>
+     <string name="change_image">change image</string>
+     <string name="diagnosis_date">Diagnosis Date</string>
++
++    <string name="network_error_message">Network Error</string>
++    <string name="login_failed_message">Login Failed, Wrong Account or Password</string>
++    <string name="unknown_error">Unknown Error</string>
+ </resources>
+\ No newline at end of file
+Index: app/src/main/res/layout/fragment_history.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<layout xmlns:app=\"http://schemas.android.com/apk/res-auto\"\r\n    xmlns:android=\"http://schemas.android.com/apk/res/android\">\r\n\r\n    <data>\r\n        <!-- Declare ViewModel and other data binding variables here if needed -->\r\n    </data>\r\n\r\n    <ScrollView\r\n        android:layout_width=\"match_parent\"\r\n        android:layout_height=\"match_parent\"\r\n        app:layout_constraintTop_toTopOf=\"parent\"\r\n        app:layout_constraintBottom_toBottomOf=\"parent\"\r\n        app:layout_constraintStart_toStartOf=\"parent\"\r\n        app:layout_constraintEnd_toEndOf=\"parent\"\r\n        android:paddingTop=\"0dp\"\r\n        android:paddingBottom=\"0dp\"\r\n        android:paddingStart=\"8dp\"\r\n        android:paddingEnd=\"8dp\"\r\n        android:layout_marginBottom=\"56dp\"\r\n        android:fitsSystemWindows=\"true\">\r\n\r\n        <androidx.constraintlayout.widget.ConstraintLayout\r\n            android:layout_width=\"match_parent\"\r\n            android:layout_height=\"wrap_content\"\r\n            android:orientation=\"vertical\"\r\n            >\r\n\r\n            <androidx.recyclerview.widget.RecyclerView\r\n                android:id=\"@+id/recyclerView\"\r\n                android:layout_width=\"match_parent\"\r\n                android:layout_height=\"wrap_content\"\r\n                app:layout_constraintBottom_toBottomOf=\"parent\"\r\n                app:layout_constraintEnd_toEndOf=\"parent\"\r\n                app:layout_constraintStart_toStartOf=\"parent\"\r\n                app:layout_constraintTop_toTopOf=\"parent\" />\r\n\r\n        </androidx.constraintlayout.widget.ConstraintLayout>\r\n    </ScrollView>\r\n</layout>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/res/layout/fragment_history.xml b/app/src/main/res/layout/fragment_history.xml
+--- a/app/src/main/res/layout/fragment_history.xml	(revision 47c4933cb04f4e892159e6e08f87ef7491105636)
++++ b/app/src/main/res/layout/fragment_history.xml	(date 1733985141374)
+@@ -37,4 +37,5 @@
+ 
+         </androidx.constraintlayout.widget.ConstraintLayout>
+     </ScrollView>
++
+ </layout>
+\ No newline at end of file
+Index: .idea/discord.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"DiscordProjectSettings\">\r\n    <option name=\"show\" value=\"APPLICATION\" />\r\n    <option name=\"description\" value=\"\" />\r\n    <option name=\"applicationTheme\" value=\"default\" />\r\n    <option name=\"iconsTheme\" value=\"default\" />\r\n    <option name=\"button1Title\" value=\"\" />\r\n    <option name=\"button1Url\" value=\"\" />\r\n    <option name=\"button2Title\" value=\"\" />\r\n    <option name=\"button2Url\" value=\"\" />\r\n    <option name=\"customApplicationId\" value=\"\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/discord.xml b/.idea/discord.xml
+--- a/.idea/discord.xml	(revision 47c4933cb04f4e892159e6e08f87ef7491105636)
++++ b/.idea/discord.xml	(date 1733982324041)
+@@ -1,7 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="DiscordProjectSettings">
+-    <option name="show" value="APPLICATION" />
++    <option name="show" value="PROJECT" />
+     <option name="description" value="" />
+     <option name="applicationTheme" value="default" />
+     <option name="iconsTheme" value="default" />
